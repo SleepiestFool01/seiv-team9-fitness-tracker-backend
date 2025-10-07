@@ -1,11 +1,11 @@
 [Unit]
-Description=NodeJS Tutorial App
+Description=NodeJS Fitness Tracker App
 After=network.target
  
 [Service]
 Type=simple
 User=ubuntu
-WorkingDirectory=/home/ubuntu/nodeapps/tutorial-backend/
+WorkingDirectory=/home/ubuntu/nodeapps/tracker-backend/
 ExecStart=npm run start
 Restart=on-failure
  
