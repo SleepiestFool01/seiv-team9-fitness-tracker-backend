@@ -59,4 +59,4 @@ jobs:
             sudo systemctl stop tracker-backend.service
             sudo cp tracker-backend.service /lib/systemd/system/tracker-t9-backend.service
             sudo systemctl daemon-reload
-            sudo systemctl start tracker-backend
+            sudo systemctl start tracker-t9-backend
