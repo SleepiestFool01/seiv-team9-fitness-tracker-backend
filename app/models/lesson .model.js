@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
-const Lesson = SequelizeInstance.define("lesson", {
+const Tracker = SequelizeInstance.define("lesson", {
     title: {
       type: Sequelize.STRING,
     },
@@ -12,5 +12,5 @@ const Lesson = SequelizeInstance.define("lesson", {
       type: Sequelize.BOOLEAN,
     },
   });
-
-export default Lesson;
+   
+export default Tracker;
