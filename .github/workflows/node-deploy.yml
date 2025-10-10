@@ -11,10 +11,10 @@ jobs:
   aws-deploy:
     runs-on: ubuntu-latest
     env:
-      DB_HOST: ${{ secrets.DB_HOST }}
-      DB_PW: ${{ secrets.DB_PW}}
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_HOST: ${{ secrets.AWS_DB_HOST }}
+      DB_PW: ${{ secrets.AWS_DB_PW}}
+      DB_USER: ${{ secrets.AWS_DB_USER }}
+      DB_NAME: ${{ secrets.AWS_DB_NAME }}
       PORT: ${{ secrets.PORT }}
 
     steps:
@@ -28,10 +28,10 @@ jobs:
 
       - run: |
           touch .env
-          echo DB_HOST = "$DB_HOST" >> .env
-          echo DB_PW = "$DB_PW" >> .env
-          echo DB_USER = "$DB_USER" >> .env
-          echo DB_NAME = "$DB_NAME" >> .env
+          echo DB_HOST = "$AWS_DB_HOST" >> .env
+          echo DB_PW = "$AWS_DB_PW" >> .env
+          echo DB_USER = "$AWS_DB_USER" >> .env
+          echo DB_NAME = "$AWS_DB_NAME" >> .env
           echo PORT = "$PORT" >> .env
 
       - run: npm run bundle
@@ -56,7 +56,7 @@ jobs:
           command: |
             cd nodeapps/2025/project2/t9
             npm install
-            sudo systemctl stop tracker-backend.service
+            sudo systemctl stop tracker-t9-backend.service
             sudo cp tracker-backend.service /lib/systemd/system/tracker-t9-backend.service
             sudo systemctl daemon-reload
             sudo systemctl start tracker-t9-backend
