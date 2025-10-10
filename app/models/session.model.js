@@ -15,6 +15,10 @@ const Session = SequelizeInstance.define("sessions", {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    userId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
     expirationDate: {
       type: Sequelize.DATE,
       allowNull: false,

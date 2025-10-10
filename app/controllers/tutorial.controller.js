@@ -1,61 +1,65 @@
-import db  from "../models/index.js";
-const Lesson = db.lesson;
+import db from "../models/index.js";
+
+const Tutorial = db.tutorial;
 const Op = db.Sequelize.Op;
 const exports = {};
-// Create and Save a new Lesson
+
+// Create and Save a new Tutorial
 exports.create = (req, res) => {
-  // Validate request
   if (!req.body.title) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
     return;
   }
-  // Create a Lesson
-  const lesson = {
+
+  const tutorial = {
     title: req.body.title,
     description: req.body.description,
     published: req.body.published ? req.body.published : false,
     userId: req.body.userId,
   };
-  // Save Lesson in the database
-  Lesson.create(lesson)
+
+  Tutorial.create(tutorial)
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Lesson.",
-      });
-    });
-};
-// Retrieve all Lessons from the database.
-exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-  Lesson.findAll({ where: condition })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving lessons.",
+          err.message || "Some error occurred while creating the Tutorial.",
       });
     });
 };
 
-// Find a single Lesson with an id
+// Retrieve all Tutorials from the database.
+exports.findAll = (req, res) => {
+  const title = req.query.title;
+  const condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+
+  Tutorial.findAll({ where: condition })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials.",
+      });
+    });
+};
+
+// Retrieve all Tutorials for a specific user
 exports.findAllForUser = (req, res) => {
   const userId = req.params.userId;
-  Lesson.findAll({ where: { userId: userId } })
+
+  Tutorial.findAll({ where: { userId: userId } })
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Lessons for user with id=${userId}.`,
+          message: `Cannot find Tutorials for user with id=${userId}.`,
         });
       }
     })
@@ -63,72 +67,78 @@ exports.findAllForUser = (req, res) => {
       res.status(500).send({
         message:
           err.message ||
-          "Error retrieving Lessons for user with id=" + userId,
+          "Error retrieving Tutorials for user with id=" + userId,
       });
     });
 };
-// Find a single Lesson with an id
+
+// Find a single Tutorial with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-  Lesson.findByPk(id)
+
+  Tutorial.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Lesson with id=${id}.`,
+          message: `Cannot find Tutorial with id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Error retrieving Lesson with id=" + id,
+        message: err.message || "Error retrieving Tutorial with id=" + id,
       });
     });
 };
-// Update a Trakcer by the id in the request
+
+// Update a Tutorial by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
-  Lesson.update(req.body, {
+
+  Tutorial.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Lesson was updated successfully.",
+          message: "Tutorial was updated successfully.",
         });
       } else {
         res.send({
-          message: `Cannot update Lesson with id=${id}. Maybe Lesson was not found or req.body is empty!`,
+          message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Error updating Lesson with id=" + id,
+        message: err.message || "Error updating Tutorial with id=" + id,
       });
     });
 };
-// Delete a Lesson with the specified id in the request
+
+// Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
-  Lesson.destroy({
+
+  Tutorial.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Lesson was deleted successfully!",
+          message: "Tutorial was deleted successfully!",
         });
       } else {
         res.send({
-          message: `Cannot delete Lesson with id=${id}. Maybe Lesson was not found!`,
+          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Could not delete Lesson with id=" + id,
+        message: err.message || "Could not delete Tutorial with id=" + id,
       });
     });
 };
