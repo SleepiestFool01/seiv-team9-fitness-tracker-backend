@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
   
 // Load the routes from the routes folder
-app.use("/tutorial", routes); 
+app.use("/tracker-t9", routes); 
 
 
 // set port, listen for requests
