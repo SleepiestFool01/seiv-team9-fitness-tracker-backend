@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
-const Tracker = SequelizeInstance.define("tracker", {
+const Tracker = SequelizeInstance.define("lesson", {
     title: {
       type: Sequelize.STRING,
     },
