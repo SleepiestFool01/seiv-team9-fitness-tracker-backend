@@ -6,7 +6,6 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "bundle": "mkdir deploy && cp -r app server.js package.json package-lock.json tracker-t9-backend.service .env deploy"
   },
   "keywords": [
