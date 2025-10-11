@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "tracker-backend",
+  "name": "tracker-t9-backend",
   "version": "1.0.0",
   "description": "Tracker Node.js with Rest API",
   "main": "server.js",
