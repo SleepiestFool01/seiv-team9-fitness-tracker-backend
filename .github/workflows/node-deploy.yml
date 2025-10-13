@@ -45,7 +45,7 @@ jobs:
           SOURCE: "deploy/"
           REMOTE_HOST: "tutorial.eaglesoftwareteam.com"
           REMOTE_USER: ubuntu
-          TARGET: "nodeapps/tutorial-backend"
+          TARGET: "nodeapps/2025/project3/t3"
       - name: Execute SSH commmands on remote server
         uses: JimCronqvist/action-ssh@master
         env:
@@ -55,9 +55,9 @@ jobs:
           privateKey: ${{ secrets.SERVER_SSH_KEY }}
           debug: false
           command: |
-            cd nodeapps/tutorial-backend
+            cd nodeapps/tracker-t9-backend
             npm install
-            sudo systemctl stop tutorial-backend
-            sudo cp tutorial-backend.service /lib/systemd/system/tutorial-backend.service
+            sudo systemctl stop tracker-t9-backend
+            sudo cp tracker-t9-backend.service /lib/systemd/system/tracker-t9-backend.service
             sudo systemctl daemon-reload
-            sudo systemctl start tutorial-backend
+            sudo systemctl start tracker-t9-backend
