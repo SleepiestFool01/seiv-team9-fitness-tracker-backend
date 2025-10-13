@@ -50,7 +50,7 @@ jobs:
         env:
           NAME: "Root"
         with:
-          hosts: "ubuntu@tracker.eaglesoftwareteam.com"
+          hosts: "ubuntu@tracker-t9.eaglesoftwareteam.com"
           privateKey: ${{ secrets.SERVER_SSH_KEY }}
           debug: false
           command: |
