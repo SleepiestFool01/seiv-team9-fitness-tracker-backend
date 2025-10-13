@@ -57,6 +57,6 @@ jobs:
             cd nodeapps/2025/project2/t9
             npm install
             sudo systemctl stop tracker-t9-backend.service
-            sudo cp tracker-backend.service /lib/systemd/system/tracker-t9-backend.service
+            sudo cp tracker-t9-backend.service /lib/systemd/system/tracker-t9-backend.service
             sudo systemctl daemon-reload
             sudo systemctl start tracker-t9-backend
