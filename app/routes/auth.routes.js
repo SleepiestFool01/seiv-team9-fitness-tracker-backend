@@ -15,4 +15,3 @@
   router.post("/logout", auth.logout);
 
  export default router
-

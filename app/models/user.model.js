@@ -1,3 +1,4 @@
+
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
@@ -31,4 +32,3 @@ const User = SequelizeInstance.define("user", {
 });
 
 export default User;
-
