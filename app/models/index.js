@@ -6,7 +6,7 @@ import sequelize from "../config/sequelizeInstance.js";
 
 import User from "./user.model.js";
 import Session from "./session.model.js";
-import Tracker from "./tracker.model.js";
+import Lesson from "./lesson.model.js";
 
 
 
@@ -16,7 +16,7 @@ db.sequelize = sequelize;
 
 db.user = User;
 db.session = Session;
-db.tracker = Tracker;
+db.lesson = Lesson;
 
 
 // foreign key for session
@@ -31,20 +31,20 @@ db.session.belongsTo(
   { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
-// foreign key for tutorials
+// foreign key for lessons
 db.user.hasMany(
-  db.tutorial,
-  { as: "tracker" },
+  db.lesson,
+  { as: "lesson" },
   { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
-db.tracker.belongsTo(
+db.lesson.belongsTo(
   db.user,
   { as: "user" },
   { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
 // foreign key for lessons
-db.tracker.hasMany(
+db.lesson.hasMany(
   db.lesson,
   { as: "lesson" },
   { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
