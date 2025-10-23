@@ -18,7 +18,7 @@ exports.create = (req, res) => {
     description: req.body.description,
     reps: req.body.reps,
     sets: req.body.sets,
-    userId: req.body.userId
+    // userId: req.body.userId
   };
   // Save Exercise in the database
   Exercise.create(exercise)
@@ -28,111 +28,111 @@ exports.create = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial.",
+          err.message || "Some error occurred while creating the Exercise.",
       });
     });
 };
 
-// FINISH CHANGING THE BELOW CODE
-// Retrieve all Tutorials from the database.
+// Retrieve all Exercises from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-  Tutorial.findAll({ where: condition })
+  const id = req.query.id;
+  var condition = id ? { id: { [Op.like]: `%${id}%` } } : null;
+  Exercise.findAll({ where: condition })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials.",
+          err.message || "Some error occurred while retrieving exercises.",
       });
     });
 };
 
-// Find a single Tutorial with an id
-exports.findAllForUser = (req, res) => {
-  const userId = req.params.userId;
-  Tutorial.findAll({ where: { userId: userId } })
-    .then((data) => {
-      if (data) {
-        res.send(data);
-      } else {
-        res.status(404).send({
-          message: `Cannot find Tutorials for user with id=${userId}.`,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message ||
-          "Error retrieving Tutorials for user with id=" + userId,
-      });
-    });
-};
-// Find a single Tutorial with an id
+// Find a single Exercise with an id
+// exports.findAllForUser = (req, res) => {
+//   const userId = req.params.userId;
+//   Tutorial.findAll({ where: { userId: userId } })
+//     .then((data) => {
+//       if (data) {
+//         res.send(data);
+//       } else {
+//         res.status(404).send({
+//           message: `Cannot find Tutorials for user with id=${userId}.`,
+//         });
+//       }
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message:
+//           err.message ||
+//           "Error retrieving Tutorials for user with id=" + userId,
+//       });
+//     });
+// };
+
+// Find a single Exercise with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-  Tutorial.findByPk(id)
+  Exercise.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Tutorial with id=${id}.`,
+          message: `Cannot find Exercise with id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Error retrieving Tutorial with id=" + id,
+        message: err.message || "Error retrieving Exercise with id=" + id,
       });
     });
 };
-// Update a Tutorial by the id in the request
+// Update an Exercise by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
-  Tutorial.update(req.body, {
+  Exercise.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was updated successfully.",
+          message: "Exercise was updated successfully.",
         });
       } else {
         res.send({
-          message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`,
+          message: `Cannot update Exercise with id=${id}. Maybe Exercise was not found or req.body is empty!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Error updating Tutorial with id=" + id,
+        message: err.message || "Error updating Exercise with id=" + id,
       });
     });
 };
-// Delete a Tutorial with the specified id in the request
+// Delete an Exercise with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
-  Tutorial.destroy({
+  Exercise.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was deleted successfully!",
+          message: "Exercise was deleted successfully!",
         });
       } else {
         res.send({
-          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`,
+          message: `Cannot delete Exercise with id=${id}. Maybe Exercise was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Could not delete Tutorial with id=" + id,
+        message: err.message || "Could not delete Exercise with id=" + id,
       });
     });
 };
