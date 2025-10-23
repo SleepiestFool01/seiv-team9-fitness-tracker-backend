@@ -14,4 +14,3 @@ const Lesson = SequelizeInstance.define("lesson", {
   });
 
 export default Lesson;
-//this is a random comment to test git changes
