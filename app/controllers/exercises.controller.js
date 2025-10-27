@@ -18,7 +18,7 @@ exports.create = (req, res) => {
     description: req.body.description,
     reps: req.body.reps,
     sets: req.body.sets,
-    // userId: req.body.userId
+    userId: req.body.userId
   };
   // Save Exercise in the database
   Exercise.create(exercise)
@@ -49,27 +49,27 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Exercise with an id
-// exports.findAllForUser = (req, res) => {
-//   const userId = req.params.userId;
-//   Tutorial.findAll({ where: { userId: userId } })
-//     .then((data) => {
-//       if (data) {
-//         res.send(data);
-//       } else {
-//         res.status(404).send({
-//           message: `Cannot find Tutorials for user with id=${userId}.`,
-//         });
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message:
-//           err.message ||
-//           "Error retrieving Tutorials for user with id=" + userId,
-//       });
-//     });
-// };
+// Retrieve all Exercises for a user from the database.
+exports.findAllForUser = (req, res) => {
+  const userId = req.params.userId;
+  Exercise.findAll({ where: { userId: userId } })
+    .then((data) => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find Exercises for user with id=${userId}.`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message ||
+          "Error retrieving Exercises for user with id=" + userId,
+      });
+    });
+};
 
 // Find a single Exercise with an id
 exports.findOne = (req, res) => {

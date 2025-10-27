@@ -11,7 +11,7 @@
   router.get("/", [authenticate], exercises.findAll);
 
   // Retrieve all Exercises for user
-  // router.get("/userTut/:userId", [authenticate], tutorials.findAllForUser);
+  router.get("/userTut/:userId", [authenticate], exercises.findAllForUser);
 
   // Retrieve a single Exercise with id
   router.get("/:id", [authenticate], exercises.findOne);
