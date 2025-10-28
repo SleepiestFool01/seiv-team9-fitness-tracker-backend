@@ -11,6 +11,6 @@ const router = Router();
 router.use("/", AuthRoutes);
 router.use("/users", UserRoutes);
 router.use("/tutorials", TutorialRoutes);
-router.use("/tutorials", LessonRoutes);
+router.use("/lesson", LessonRoutes);
 
 export default router;

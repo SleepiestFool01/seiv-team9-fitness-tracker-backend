@@ -1,3 +1,11 @@
+/*
+index.js in Models is how we can relate each table within the database to one another. 
+Create foreign keys within each table, first you have to import each "Entity" or tabel into the Index file, 
+then assign each as a constant within the database.
+
+*/
+
+
 import dbConfig from "../config/db.config.js";
 import { Sequelize } from "sequelize";
 import sequelize from "../config/sequelizeInstance.js";
@@ -9,6 +17,7 @@ import Session from "./session.model.js";
 import Tutorial from "./tutorial.model.js";
 import Lesson from "./tutorial.model.js"; 
 
+console.log("index.js");
 
 const db = {};
 db.Sequelize = Sequelize;
