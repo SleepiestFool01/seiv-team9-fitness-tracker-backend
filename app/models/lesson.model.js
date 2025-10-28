@@ -1,6 +1,8 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
+console.log("Lessons");
+
 const Lesson = SequelizeInstance.define("lesson", {
     title: {
       type: Sequelize.STRING,
