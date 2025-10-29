@@ -38,6 +38,10 @@ const Exercise = SequelizeInstance.define("exercise", {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
+     isCompleted: {
+        type: Sequelize.BOOLEAN, 
+        defailt: false,
+      }, 
   });
 
 export default Exercise;

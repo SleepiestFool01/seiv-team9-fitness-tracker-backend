@@ -36,18 +36,32 @@ db.user_team = User_Team;
 db.team = Team;
 db.muscle_group = Muscle_Group;
 
-
-//USER RELATIONS 
-db.user.hasMany()
 //For Catalog lessons belong to many users & Users belong to many lessons for the relations 
 //Do the same thing for the user_team bridge table. 
 
-//SESSION RELATIONS 
+//USER RELATIONS 
 db.user.hasMany(db.session, {
   as: "sessions",
   foreignKey: { name: "id_user", allowNull: false },
   onDelete: "CASCADE",
 });
+db.user.hasMany(db.lesson, {
+  as: "lessons",
+  foreignKey: { name: "id_user", allowNull: false },
+  onDelete: "CASCADE",
+});
+db.user.hasMany(db.player_goal, {
+  as: "player_goal", 
+  foreignKey: {name: "id_user", allowNull: false }, 
+  onDelete: "CASCADE", 
+});
+db.user.hasMany(db.team, {
+  as: "team", 
+  foreignKey: {name: "id_user"},
+  onDelete: "CASCADE", 
+}), 
+
+//SESSION RELATIONS 
 db.session.belongsTo(db.user, {
   as: "user",
   foreignKey: { name: "id_user", allowNull: false },
@@ -55,11 +69,16 @@ db.session.belongsTo(db.user, {
 });
 
 //LESSON RELATIONS 
-db.user.hasMany(db.lesson, {
-  as: "lessons",
-  foreignKey: { name: "id_user", allowNull: false },
+db.lesson.hasMany(db.exercise, {
+  as: "exercises",
+  foreignKey: { name: "id_lesson", allowNull: false },
   onDelete: "CASCADE",
 });
+db.lesson.hasOne(db.muscle_group, {
+  as: "muscle_group",
+  foreignKey: {name: "id_lesson", allowNull: false },
+  onDelete: "CASCADE",
+}),
 db.lesson.belongsTo(db.user, {
   as: "user",
   foreignKey: { name: "id_user", allowNull: false },
@@ -67,11 +86,6 @@ db.lesson.belongsTo(db.user, {
 });
 
 //EXERCISES RELATIONS 
-db.lesson.hasMany(db.exercise, {
-  as: "exercises",
-  foreignKey: { name: "id_lesson", allowNull: false },
-  onDelete: "CASCADE",
-});
 db.exercise.belongsTo(db.lesson, {
   as: "lesson",
   foreignKey: { name: "id_lesson", allowNull: false },
@@ -79,11 +93,6 @@ db.exercise.belongsTo(db.lesson, {
 });
 
 //Player_Goal RELATIONS 
-db.user.hasMany(db.player_goal, {
-  as: "player_goal", 
-  foreignKey: {name: "id_user", allowNull: false }, 
-  onDelete: "CASCADE", 
-})
 db.player_goal.belongsTo(db.user,{
   as: "user",
   foreignKey: {name: "id_user", allowNull: false },
@@ -92,9 +101,18 @@ db.player_goal.belongsTo(db.user,{
 export default db;
 
 //TEAM GOAL RELATIONS 
+db.team_goal.belongsTo(db.team, {
+  as: "team", 
+  foreignKey: {name: "id_team", allowNull: true},
+  onDelete: "CASCADE", 
+}),
+//CATALOG RELATIONS - I dont think it needs anu relations because it is a bridge table
 
-//CATALOG RELATIONS 
-
-//USER TEAM BRIDGE TABLE RELATIONS 
+//USER TEAM BRIDGE TABLE RELATIONS - I dont think it needs anu relations because it is a bridge table
 
 //TEAM RELATIONS 
+db.team.belongsTo(db.user, {
+  as: "user",
+  foreignKey: {name: "id_user", allowNull: false}, 
+  onDelete: "CASCADE", 
+});

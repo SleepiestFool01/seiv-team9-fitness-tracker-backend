@@ -56,6 +56,16 @@ const User = SequelizeInstance.define("user", {
     type: Sequelize.DATE, 
     defaultValue: Sequelize.NOW 
   },
+ 
+  weight: {
+    type: Sequelize.FLOAT, 
+    allowNull: true, 
+  }, 
+  mileTime: {
+    type: Sequelize.FLOAT, 
+    allowNull: true,
+  }, 
+
   // refresh_token: {
   //   type: Sequelize.STRING(512),
   //   allowNull: true

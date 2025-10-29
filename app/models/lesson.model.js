@@ -40,6 +40,10 @@ const Lesson = SequelizeInstance.define("lesson", {
   // muscleGroup: {
   //   type: Sequelize.ENUM("Upper-Body","Lower-Body","Full-Body")
   // },
+  isCompleted: {
+    type: Sequelize.BOOLEAN, 
+    defailt: false,
+  }, //Used to track lesson progress if it is 100% completed then turn boolean to true. 
   
   published: {
     type: Sequelize.BOOLEAN,

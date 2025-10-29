@@ -2,6 +2,8 @@
   import Sequelize from "sequelize";
   import SequelizeInstance from "../config/sequelizeInstance.js";
 
+  console.log("Muscle Group");
+  
   const Muscle_Group = sequelizeInstance("muscle_group",{
     //Primary Key 
     id_muscle_group: {
