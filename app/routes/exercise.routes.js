@@ -10,31 +10,16 @@
   router.get("/:id_lesson/exercises", [authenticate], exercises.findAllForLesson);
 
   // Retrieve all published Exercises for a Lesson
-  router.get(
-    "/:id_lesson/exercises/published",
-    [authenticate],
-    exercises.findAllPublished
-  );
+  router.get( "/:id_lesson/exercises/published", [authenticate], exercises.findAllPublished );
 
   // Retrieve a single Exercise with id_exercise
-  router.get(
-    "/:id_lesson/exercises/:id_exercise",
-    [authenticate],
-    exercises.findOne
-  );
+  router.get( "/:id_lesson/exercises/:id_exercise", [authenticate], exercises.findOne );
 
   // Update an Exercise with id_exercise
-  router.put(
-    "/:id_lesson/exercises/:id_exercise",
-    [authenticate],
-    exercises.update
+  router.put( "/:id_lesson/exercises/:id_exercise", [authenticate], exercises.update
   );
 
   // Delete an Exercise with id_exercise
-  router.delete(
-    "/:id_lesson/exercises/:id_exercise",
-    [authenticate],
-    exercises.delete
-  );
+  router.delete( "/:id_lesson/exercises/:id_exercise", [authenticate], exercises.delete );
 
 export default router

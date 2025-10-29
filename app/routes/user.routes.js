@@ -7,7 +7,7 @@
   // Create a new User
   router.post("/", [authenticate], users.create);
 
-  // Retrieve all People
+  // Retrieve all People/Users
   router.get("/", [authenticate], users.findAll);
 
   // Retrieve a single User with id_user

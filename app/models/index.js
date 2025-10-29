@@ -12,6 +12,7 @@ import User from "./user.model.js";
 import Session from "./session.model.js";
 import Lesson from "./lesson.model.js";
 import Exercise from "./exercise.model.js";
+import Player_Goal from "./player_goal.model.js";
 
 console.log("index.js");
 
@@ -23,8 +24,9 @@ db.user = User;
 db.session = Session;
 db.lesson = Lesson;
 db.exercise = Exercise;
+db.player_goal = Player_Goal;
 
-// foreign key for sessions
+//SESSION RELATIONS 
 db.user.hasMany(db.session, {
   as: "sessions",
   foreignKey: { name: "id_user", allowNull: false },
@@ -36,7 +38,7 @@ db.session.belongsTo(db.user, {
   onDelete: "CASCADE",
 });
 
-// foreign key for lessons
+//LESSON RELATIONS 
 db.user.hasMany(db.lesson, {
   as: "lessons",
   foreignKey: { name: "id_user", allowNull: false },
@@ -48,7 +50,7 @@ db.lesson.belongsTo(db.user, {
   onDelete: "CASCADE",
 });
 
-// foreign key for exercises
+//EXERCISES RELATIONS 
 db.lesson.hasMany(db.exercise, {
   as: "exercises",
   foreignKey: { name: "id_lesson", allowNull: false },
@@ -60,4 +62,15 @@ db.exercise.belongsTo(db.lesson, {
   onDelete: "CASCADE",
 });
 
+//Player_Goal RELATIONS 
+db.user.hasMany(db.player_goal, {
+  as: "player_goal", 
+  foreignKey: {name: "id_user", allowNull: false }, 
+  onDelete: "CASCADE", 
+})
+db.player_goal.belongsTo(db.user,{
+  as: "user",
+  foreignKey: {name: "id_user", allowNull: false },
+  onDelete: "CASCADE",
+});
 export default db;
