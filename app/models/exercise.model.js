@@ -1,11 +1,10 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
+console.log("Exercises");
 
-console.log("Lesson's");
-
-const Lesson = SequelizeInstance.define("lesson", {
-  id_lesson: {
+const Exercise = SequelizeInstance.define("exercise", {
+  id_exercise: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true,
@@ -19,10 +18,10 @@ const Lesson = SequelizeInstance.define("lesson", {
   published: {
     type: Sequelize.BOOLEAN,
   },
-  id_user: {
+  id_lesson: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
 });
 
-export default Lesson;
+export default Exercise;

@@ -6,7 +6,7 @@ import SequelizeInstance from "../config/sequelizeInstance.js";
 
 const User = SequelizeInstance.define("user", {
   
-  id: {
+  id_user: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true,

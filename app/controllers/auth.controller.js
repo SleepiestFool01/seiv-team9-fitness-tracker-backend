@@ -83,7 +83,7 @@ exports.login = async (req, res) => {
     });
 
   // this lets us get the user id
-  if (user.id === undefined) {
+  if (user.id_user === undefined) {
   
     await User.create(user)
       .then((data) => {
@@ -101,18 +101,18 @@ exports.login = async (req, res) => {
     user.fName = firstName;
     user.lName = lastName;
   
-    await User.update(user, { where: { id: user.id } })
+    await User.update(user, { where: { id_user: user.id_user } })
       .then((num) => {
         if (num == 1) {
           console.log("updated user's name");
         } else {
           console.log(
-            `Cannot update User with id=${user.id}. Maybe User was not found or req.body is empty!`
+            `Cannot update User with id_user=${user.id_user}. Maybe User was not found or req.body is empty!`
           );
         }
       })
       .catch((err) => {
-        console.log("Error updating User with id=" + user.id + " " + err);
+        console.log("Error updating User with id_user=" + user.id_user + " " + err);
       });
   }
 
@@ -130,7 +130,7 @@ exports.login = async (req, res) => {
         if (session.expirationDate < Date.now()) {
           session.token = "";
           // clear session's token if it's expired
-          await Session.update(session, { where: { id: session.id } })
+          await Session.update(session, { where: { id_session: session.id_session } })
             .then((num) => {
               if (num == 1) {
                 console.log("successfully logged out");
@@ -155,7 +155,7 @@ exports.login = async (req, res) => {
             email: user.email,
             fName: user.fName,
             lName: user.lName,
-            userId: user.id,
+            id_user: user.id_user,
             token: session.token,
             // refresh_token: user.refresh_token,
             // expiration_date: user.expiration_date
@@ -173,7 +173,7 @@ exports.login = async (req, res) => {
       });
     });
 
-  if (session.id === undefined) {
+  if (session.id_session === undefined) {
     // create a new Session with an expiration date and save to database
     let token = jwt.sign({ id: email }, authconfig.secret, {
       expiresIn: 86400,
@@ -183,7 +183,7 @@ exports.login = async (req, res) => {
     const session = {
       token: token,
       email: email,
-      userId: user.id,
+      id_user: user.id_user,
       expirationDate: tempExpirationDate,
     };
 
@@ -196,7 +196,7 @@ exports.login = async (req, res) => {
           email: user.email,
           fName: user.fName,
           lName: user.lName,
-          userId: user.id,
+          id_user: user.id_user,
           token: token,
           // refresh_token: user.refresh_token,
           // expiration_date: user.expiration_date
@@ -228,7 +228,7 @@ exports.authorize = async (req, res) => {
 
   await User.findOne({
     where: {
-      id: req.params.id,
+      id_user: req.params.id_user,
     },
   })
     .then((data) => {
@@ -247,13 +247,13 @@ exports.authorize = async (req, res) => {
   tempExpirationDate.setDate(tempExpirationDate.getDate() + 100);
   user.expiration_date = tempExpirationDate;
 
-  await User.update(user, { where: { id: user.id } })
+  await User.update(user, { where: { id_user: user.id_user } })
     .then((num) => {
       if (num == 1) {
         console.log("updated user's google token stuff");
       } else {
         console.log(
-          `Cannot update User with id=${user.id}. Maybe User was not found or req.body is empty!`
+            `Cannot update User with id_user=${user.id_user}. Maybe User was not found or req.body is empty!`
         );
       }
       let userInfo = {
@@ -298,8 +298,8 @@ exports.logout = async (req, res) => {
   session.token = "";
 
   // session won't be null but the id will if no session was found
-  if (session.id !== undefined) {
-    Session.update(session, { where: { id: session.id } })
+  if (session.id_session !== undefined) {
+    Session.update(session, { where: { id_session: session.id_session } })
       .then((num) => {
         if (num == 1) {
           console.log("successfully logged out");

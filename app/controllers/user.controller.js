@@ -1,7 +1,9 @@
-import db  from "../models/index.js";
+import db from "../models/index.js";
+
 const User = db.user;
 const Op = db.Sequelize.Op;
 const exports = {};
+
 // Create and Save a new User
 exports.create = (req, res) => {
   // Validate request
@@ -14,7 +16,6 @@ exports.create = (req, res) => {
 
   // Create a User
   const user = {
-    id: req.body.id,
     fName: req.body.fName,
     lName: req.body.lName,
     email: req.body.email,
@@ -36,8 +37,10 @@ exports.create = (req, res) => {
 
 // Retrieve all People from the database.
 exports.findAll = (req, res) => {
-  const id = req.query.id;
-  var condition = id ? { id: { [Op.like]: `%${id}%` } } : null;
+  const id_user = req.query.id_user;
+  const condition = id_user
+    ? { id_user: { [Op.like]: `%${id_user}%` } }
+    : null;
 
   User.findAll({ where: condition })
     .then((data) => {
@@ -52,21 +55,21 @@ exports.findAll = (req, res) => {
 
 // Find a single User with an id
 exports.findOne = (req, res) => {
-  const id = req.params.id;
+  const id_user = req.params.id_user;
 
-  User.findByPk(id)
+  User.findByPk(id_user)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find User with id=${id}.`,
+          message: `Cannot find User with id_user=${id_user}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving User with id=" + id,
+        message: "Error retrieving User with id_user=" + id_user,
       });
     });
 };
@@ -99,10 +102,10 @@ exports.findByEmail = (req, res) => {
 
 // Update a User by the id in the request
 exports.update = (req, res) => {
-  const id = req.params.id;
+  const id_user = req.params.id_user;
 
   User.update(req.body, {
-    where: { id: id },
+    where: { id_user },
   })
     .then((num) => {
       if (num == 1) {
@@ -111,23 +114,23 @@ exports.update = (req, res) => {
         });
       } else {
         res.send({
-          message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`,
+          message: `Cannot update User with id_user=${id_user}. Maybe User was not found or req.body is empty!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating User with id=" + id,
+        message: "Error updating User with id_user=" + id_user,
       });
     });
 };
 
 // Delete a User with the specified id in the request
 exports.delete = (req, res) => {
-  const id = req.params.id;
+  const id_user = req.params.id_user;
 
   User.destroy({
-    where: { id: id },
+    where: { id_user },
   })
     .then((num) => {
       if (num == 1) {
@@ -136,13 +139,13 @@ exports.delete = (req, res) => {
         });
       } else {
         res.send({
-          message: `Cannot delete User with id=${id}. Maybe User was not found!`,
+          message: `Cannot delete User with id_user=${id_user}. Maybe User was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete User with id=" + id,
+        message: "Could not delete User with id_user=" + id_user,
       });
     });
 };

@@ -10,14 +10,14 @@
   // Retrieve all People
   router.get("/", [authenticate], users.findAll);
 
-  // Retrieve a single User with id
-  router.get("/:id", [authenticate], users.findOne);
+  // Retrieve a single User with id_user
+  router.get("/:id_user", [authenticate], users.findOne);
 
-  // Update a User with id
-  router.put("/:id", [authenticate], users.update);
+  // Update a User with id_user
+  router.put("/:id_user", [authenticate], users.update);
 
-  // Delete a User with id
-  router.delete("/:id", [authenticate], users.delete);
+  // Delete a User with id_user
+  router.delete("/:id_user", [authenticate], users.delete);
 
 
   export default router;
