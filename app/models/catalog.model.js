@@ -6,25 +6,30 @@ import SequelizeInstance from "../config/sequelizeInstance.js";
 // I want to have a catalogue for specific muscle groups so maybe I can enumerate this like "Biceps", "Quads", "Triceps". etc. 
 
 //Don't make the mistake of misspelling catalog again!!! save your self sometime Teagan!!!!
+
+//essentially a bridge table now
 const Catalog = SequelizeInstance.define("catalog", {
     //Primary Keys 
-    id_catalog: {
+    // id_catalog: {
+    //     type: Sequelize.INTEGER,
+    //     autoIncrement: true,
+    //     primaryKey: true,
+    // },
+
+    //Foreign Keys / composite primary key 
+    id_user: {
         type: Sequelize.INTEGER,
-        autoIncrement: true,
         primaryKey: true,
-    },
-    //Foreign Keys 
-    id_user:{
-        type: Sequelize.INTEGER,
         allowNull: false,
+
     },
-    id_lesson:{
+    id_lesson: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         allowNull: false,
     },
     //Catalogue Variables
-    catalog_type: {
-        type: Sequelize.ENUM("chest", "back", "shoulders", "biceps", "triceps", "forearms", "core", "abs", "glutes", "quadriceps", "hamstrings", "calves", "full body", "cardio", "mobility"),
-    },
+
+    //Make catalogue type its own table & reference catalog catalog -> relates to lessons
 });
 export default Catalog;

@@ -5,7 +5,7 @@ import SequelizeInstance from "../config/sequelizeInstance.js";
   console.log("Users");
 
 //A Coach should be able to assign a Lesson or exercise to a player directly, 
-//A Player should be able to assign Exercises to their own goals *Goals r owned by the players not the coaches. 
+//A Player should be able to assign Exercises to their own goals *Goals are owned by the players not the coaches. 
 const User = SequelizeInstance.define("user", {
   //Primary Key 
   id_user: {

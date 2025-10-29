@@ -7,12 +7,13 @@ import SequelizeInstance from "../config/sequelizeInstance.js";
 
 const User_Team = SequelizeInstance.define("user_team", {
   //Primary Key 
-  id_user_team: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  //Foreign Keys 
+  // id_user_team: {
+  //   type: Sequelize.INTEGER,
+  //   autoIncrement: true,
+  //   primaryKey: true,
+  // },
+  
+  //Foreign Keys / Composite key 
   id_user: {
     type: Sequelize.INTEGER,
     allowNull: false,
