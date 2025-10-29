@@ -28,7 +28,6 @@ const Player_Goal = SequelizeInstance.define("player_goal", {
     description:{
         type: Sequelize.STRING, 
     },
-
     playerTime:{
         type: Sequelize.FLOAT,
     },

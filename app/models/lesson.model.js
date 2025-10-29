@@ -16,7 +16,7 @@ const Lesson = SequelizeInstance.define("lesson", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  id_Catalogue: {
+  id_Catalog: {
      type: Sequelize.INTEGER,
      allowNull: false,
   },

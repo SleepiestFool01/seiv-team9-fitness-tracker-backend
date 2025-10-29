@@ -17,8 +17,6 @@ const Team = SequeliseInstance.define("team", {
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    
-    
     //Team Variables
     name: {
         type: Sequelize.String,

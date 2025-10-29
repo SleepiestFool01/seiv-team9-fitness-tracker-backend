@@ -4,14 +4,15 @@ import SequelizeInstance from "../config/sequelizeInstance.js";
 //Catalouge stores a list of different Lessons that a user can view at their leisure. 
 // Ask North, Ian, Davis, or Griffin how to actually implement this. 
 // I want to have a catalogue for specific muscle groups so maybe I can enumerate this like "Biceps", "Quads", "Triceps". etc. 
-const Catalouge = SequelizeInstance.define("catlogue", {
+
+//Don't make the mistake of misspelling catalog again!!! save your self sometime Teagan!!!!
+const Catalog = SequelizeInstance.define("catalog", {
     //Primary Keys 
-    id_catalouge: {
+    id_catalog: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
-
     //Foreign Keys 
     id_user:{
         type: Sequelize.INTEGER,
@@ -22,9 +23,8 @@ const Catalouge = SequelizeInstance.define("catlogue", {
         allowNull: false,
     },
     //Catalogue Variables
-    catalogue_type: {
+    catalog_type: {
         type: Sequelize.ENUM("chest", "back", "shoulders", "biceps", "triceps", "forearms", "core", "abs", "glutes", "quadriceps", "hamstrings", "calves", "full body", "cardio", "mobility"),
     },
-
 });
-export default Catalouge;
+export default Catalog;

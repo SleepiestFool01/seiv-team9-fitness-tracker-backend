@@ -21,14 +21,14 @@ const Session = SequelizeInstance.define("session", {
     type: Sequelize.STRING(3000),
     allowNull: false,
   },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
   expirationDate: {
     type: Sequelize.DATE,
     allowNull: false,
   },
+  // email: {
+  //   type: Sequelize.STRING,
+  //   allowNull: false,
+  // },
   
 });
 

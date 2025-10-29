@@ -18,7 +18,7 @@ const User = SequelizeInstance.define("user", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  id_Catalogue: { 
+  id_Catalog: { 
     type: Sequelize.INTEGER, 
     allowNull: false,
   },
@@ -34,9 +34,12 @@ const User = SequelizeInstance.define("user", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  
 
   //User Variables
+  role: { 
+    type: Sequelize.ENUM("player", "coach", "admin"),
+    defaultValue: "player" 
+  },
   fName: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -49,15 +52,10 @@ const User = SequelizeInstance.define("user", {
     type: Sequelize.STRING,
     allowNull: false,
   },
-   role: { 
-    type: Sequelize.ENUM("player", "coach", "admin"),
-    defaultValue: "player" 
-  },
   created_at: { 
     type: Sequelize.DATE, 
     defaultValue: Sequelize.NOW 
   },
-
   // refresh_token: {
   //   type: Sequelize.STRING(512),
   //   allowNull: true
