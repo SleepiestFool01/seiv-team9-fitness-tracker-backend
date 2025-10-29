@@ -17,6 +17,7 @@ import Team_Goal from "./team_goal.model.js";
 import Catalog from "./catalog.model.js";
 import User_Team from "./user_team.model.js";
 import Team from "./team.model.js";
+import Muscle_Group from "./muscle_group.model.js";
 
 console.log("index.js");
 
@@ -33,9 +34,13 @@ db.team_goal = Team_Goal;
 db.catalog = Catalog;
 db.user_team = User_Team;
 db.team = Team;
+db.muscle_group = Muscle_Group;
+
 
 //USER RELATIONS 
-db.user.hasMany
+db.user.hasMany()
+//For Catalog lessons belong to many users & Users belong to many lessons for the relations 
+//Do the same thing for the user_team bridge table. 
 
 //SESSION RELATIONS 
 db.user.hasMany(db.session, {
