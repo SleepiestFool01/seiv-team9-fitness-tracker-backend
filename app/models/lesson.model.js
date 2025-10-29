@@ -1,6 +1,8 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
+console.log("Lessons");
+
 const Lesson = SequelizeInstance.define("lesson", {
     title: {
       type: Sequelize.STRING,
@@ -14,4 +16,3 @@ const Lesson = SequelizeInstance.define("lesson", {
   });
 
 export default Lesson;
-//this is a random comment to test git changes

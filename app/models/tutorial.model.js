@@ -1,6 +1,9 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
+
+console.log("tutorials");
+
 const Tutorial = SequelizeInstance.define("tutorial", {
     title: {
       type: Sequelize.STRING,
