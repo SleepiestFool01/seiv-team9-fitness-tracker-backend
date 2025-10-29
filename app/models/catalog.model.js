@@ -6,7 +6,7 @@ import SequelizeInstance from "../config/sequelizeInstance.js";
 // I want to have a catalogue for specific muscle groups so maybe I can enumerate this like "Biceps", "Quads", "Triceps". etc. 
 
 //Don't make the mistake of misspelling catalog again!!! save your self sometime Teagan!!!!
-
+console.log("Catalog model");
 //essentially a bridge table now
 const Catalog = SequelizeInstance.define("catalog", {
     //Primary Keys 

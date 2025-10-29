@@ -4,6 +4,9 @@ Create foreign keys within each table, first you have to import each "Entity" or
 then assign each as a constant within the database.
 */
 
+//CATALOG RELATIONS - I dont think it needs anu relations because it is a bridge table
+
+//USER TEAM BRIDGE TABLE RELATIONS - I dont think it needs anu relations because it is a bridge table
 import { Sequelize } from "sequelize";
 import sequelize from "../config/sequelizeInstance.js";
 
@@ -55,11 +58,22 @@ db.user.hasMany(db.player_goal, {
   foreignKey: {name: "id_user", allowNull: false }, 
   onDelete: "CASCADE", 
 });
-db.user.hasMany(db.team, {
-  as: "team", 
-  foreignKey: {name: "id_user"},
-  onDelete: "CASCADE", 
-}), 
+db.user.belongsToMany(db.team, {
+  through: db.user_team,
+  foreignKey: "id_user",
+  otherKey: "id_team",
+  as: "teams",
+});
+// db.user.hasMany(db.team, {
+//   as: "team", 
+//   foreignKey: {name: "id_user"},
+//   onDelete: "CASCADE", 
+// }), 
+// db.user.belongsToMany(db.team, {
+//   as: "team", 
+//   foreignKey: {name: "id_team"},
+//   onDelete: "CASCADE", 
+// }),
 
 //SESSION RELATIONS 
 db.session.belongsTo(db.user, {
@@ -106,13 +120,21 @@ db.team_goal.belongsTo(db.team, {
   foreignKey: {name: "id_team", allowNull: true},
   onDelete: "CASCADE", 
 }),
-//CATALOG RELATIONS - I dont think it needs anu relations because it is a bridge table
-
-//USER TEAM BRIDGE TABLE RELATIONS - I dont think it needs anu relations because it is a bridge table
 
 //TEAM RELATIONS 
-db.team.belongsTo(db.user, {
-  as: "user",
-  foreignKey: {name: "id_user", allowNull: false}, 
-  onDelete: "CASCADE", 
+// db.team.hasMany(db.user, {
+//   as: "user",
+//   foreignKey: { name: "id_user", allowNull: false },
+//   onDelete: "CASCADE",
+// });
+// db.team.belongsToMany(db.user, {
+//   as: "user",
+//   foreignKey: {name: "id_user", allowNull: false}, 
+//   onDelete: "CASCADE", 
+// });
+db.team.belongsToMany(db.user, {
+  through: db.user_team,
+  foreignKey: "id_team",
+  otherKey: "id_user",
+  as: "members",
 });

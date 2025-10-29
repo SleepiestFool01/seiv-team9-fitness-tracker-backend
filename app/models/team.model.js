@@ -19,10 +19,10 @@ const Team = SequeliseInstance.define("team", {
     },
     //Team Variables
     name: {
-        type: Sequelize.String,
+        type: Sequelize.STRING,
     },
     description:{
-        type: Sequelize.String,
+        type: Sequelize.STRING,
     },  
     /*
     I want to add functionality for the Number of Team members to ve stored here.
