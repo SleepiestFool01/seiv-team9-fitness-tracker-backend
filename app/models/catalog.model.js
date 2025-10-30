@@ -28,8 +28,6 @@ const Catalog = SequelizeInstance.define("catalog", {
         primaryKey: true,
         allowNull: false,
     },
-    //Catalogue Variables
 
-    //Make catalogue type its own table & reference catalog catalog -> relates to lessons
 });
 export default Catalog;
