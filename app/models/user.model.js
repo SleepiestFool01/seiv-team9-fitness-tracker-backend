@@ -38,7 +38,7 @@ const User = SequelizeInstance.define("user", {
   //User Variables Changes players to athletes
   role: {
     type: Sequelize.ENUM("athletes", "coach", "admin"),
-    defaultValue: "player"
+    defaultValue: "athletes",
   },
   fName: {
     type: Sequelize.STRING,
