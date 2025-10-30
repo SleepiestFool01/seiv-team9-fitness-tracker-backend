@@ -1,8 +1,9 @@
+import db from "../models/index.js";
 
-import db  from "../models/index.js";
 const Lesson = db.lesson;
 const Op = db.Sequelize.Op;
 const exports = {};
+
 // Create and Save a new Lesson
 exports.create = (req, res) => {
   // Validate request
@@ -12,13 +13,12 @@ exports.create = (req, res) => {
     });
     return;
   }
-
   // Create a Lesson
   const lesson = {
-    tutorialId: req.params.tutorialId,
     title: req.body.title,
     description: req.body.description,
     published: req.body.published ? req.body.published : false,
+    id_user: req.body.id_user,
   };
   // Save Lesson in the database
   Lesson.create(lesson)
@@ -34,63 +34,65 @@ exports.create = (req, res) => {
 };
 // Retrieve all Lessons from the database.
 exports.findAll = (req, res) => {
-  const lessonId = req.query.lessonId;
-  var condition = lessonId
-    ? {
-        lessonId: {
-          [Op.like]: `%${lessonId}%`,
-        },
-      }
-    : null;
-
+  const title = req.query.title;
+  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
   Lesson.findAll({ where: condition })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving lessons.",
+        message:
+          err.message || "Some error occurred while retrieving lessons.",
       });
     });
 };
-// Retrieve all Lessons for a tutorial from the database.
-exports.findAllForTutorial = (req, res) => {
-  const tutorialId = req.params.tutorialId;
 
-  Lesson.findAll({ where: { tutorialId: tutorialId } })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving lessons.",
-      });
-    });
-};
 // Find a single Lesson with an id
-exports.findOne = (req, res) => {
-  const id = req.params.id;
-  Lesson.findByPk(id)
+exports.findAllForUser = (req, res) => {
+  const id_user = req.params.id_user;
+  Lesson.findAll({ where: { id_user } })
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Lesson with id=${id}.`,
+          message: `Cannot find Lessons for user with id_user=${id_user}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Lesson with id=" + id,
+        message:
+          err.message ||
+          "Error retrieving Lessons for user with id_user=" + id_user,
+      });
+    });
+};
+// Find a single Lesson with an id
+exports.findOne = (req, res) => {
+  const id_lesson = req.params.id_lesson;
+  Lesson.findByPk(id_lesson)
+    .then((data) => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find Lesson with id_lesson=${id_lesson}.`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Error retrieving Lesson with id_lesson=" + id_lesson,
       });
     });
 };
 // Update a Lesson by the id in the request
 exports.update = (req, res) => {
-  const id = req.params.id;
+  const id_lesson = req.params.id_lesson;
   Lesson.update(req.body, {
-    where: { id: id },
+    where: { id_lesson },
   })
     .then((num) => {
       if (num == 1) {
@@ -99,21 +101,21 @@ exports.update = (req, res) => {
         });
       } else {
         res.send({
-          message: `Cannot update Lesson with id=${id}. Maybe Lesson was not found or req.body is empty!`,
+          message: `Cannot update Lesson with id_lesson=${id_lesson}. Maybe Lesson was not found or req.body is empty!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Lesson with id=" + id,
+        message: err.message || "Error updating Lesson with id_lesson=" + id_lesson,
       });
     });
 };
 // Delete a Lesson with the specified id in the request
 exports.delete = (req, res) => {
-  const id = req.params.id;
+  const id_lesson = req.params.id_lesson;
   Lesson.destroy({
-    where: { id: id },
+    where: { id_lesson },
   })
     .then((num) => {
       if (num == 1) {
@@ -122,28 +124,13 @@ exports.delete = (req, res) => {
         });
       } else {
         res.send({
-          message: `Cannot delete Lesson with id=${id}. Maybe Lesson was not found!`,
+          message: `Cannot delete Lesson with id_lesson=${id_lesson}. Maybe Lesson was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Lesson with id=" + id,
-      });
-    });
-};
-
-// Find all published Lessons
-exports.findAllPublished = (req, res) => {
-  const lessonId = req.query.lessonId;
-
-  Lesson.findAll({ where: { published: true } })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving lessons.",
+        message: err.message || "Could not delete Lesson with id_lesson=" + id_lesson,
       });
     });
 };

@@ -3,13 +3,11 @@
   import { Router } from "express";
   var router = Router()
 
-
-
   // Login
   router.post("/login", auth.login);
 
   // Authorization
-  router.post("/authorize/:id", auth.authorize);
+  router.post("/authorize/:id_user", auth.authorize);
 
   // Logout
   router.post("/logout", auth.logout);

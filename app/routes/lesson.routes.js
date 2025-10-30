@@ -3,30 +3,24 @@
   import { Router } from "express";
   var router = Router()
 
-  // Create a new Lesson for a Tutorial
-  router.post("/:tutorialId/lessons/", [authenticate], lessons.create);
 
-  // Retrieve all Lessons for a Tutorial
-  router.get(
-    "/:tutorialId/lessons/",
-    [authenticate],
-    lessons.findAllForTutorial
-  );
+  // Create a new Lesson
+  router.post("/", [authenticate], lessons.create);
 
-  // Retrieve all published Lessons for a Tutorial
-  router.get(
-    "/:tutorialId/lessons/published",
-    [authenticate],
-    lessons.findAllPublished
-  );
+  // Retrieve all Lessons
+  router.get("/", [authenticate], lessons.findAll);
 
-  // Retrieve a single Lesson with id
-  router.get("/:tutorialId/lessons/:id", [authenticate], lessons.findOne);
+  // Retrieve all Lessons for a user
+  router.get("/userLes/:id_user", [authenticate], lessons.findAllForUser);
 
-  // Update a Lesson with id
-  router.put("/:tutorialId/lessons/:id", [authenticate], lessons.update);
+  // Retrieve a single Lesson with id_lesson
+  router.get("/:id_lesson", [authenticate], lessons.findOne);
 
-  // Delete a Lesson with id
-  router.delete("/:tutorialId/lessons/:id", [authenticate], lessons.delete);
+  // Update a Lesson with id_lesson
+  router.put("/:id_lesson", [authenticate], lessons.update);
 
-export default router
+  // Delete a Lesson with id_lesson
+  router.delete("/:id_lesson", [authenticate], lessons.delete);
+
+
+  export default router;

@@ -1,22 +1,26 @@
 /*
 index.js in Models is how we can relate each table within the database to one another. 
-Create foreign keys within each table, first you have to import each "Entity" or tabel into the Index file, 
+Create foreign keys within each table, first you have to import each "Entity" or table into the Index file, 
 then assign each as a constant within the database.
-
 */
 
+//CATALOG RELATIONS - I dont think it needs anu relations because it is a bridge table
 
-import dbConfig from "../config/db.config.js";
+//USER TEAM BRIDGE TABLE RELATIONS - I dont think it needs anu relations because it is a bridge table
 import { Sequelize } from "sequelize";
 import sequelize from "../config/sequelizeInstance.js";
 
-// Models
-
+// Import the models of each table into index. 
 import User from "./user.model.js";
 import Session from "./session.model.js";
-import Tutorial from "./tutorial.model.js";
-import Lesson from "./tutorial.model.js"; 
-import Exercise from "./exercises.model.js";
+import Lesson from "./lesson.model.js";
+import Exercise from "./exercise.model.js";
+import Player_Goal from "./player_goal.model.js";
+import Team_Goal from "./team_goal.model.js";
+import Catalog from "./catalog.model.js";
+import User_Team from "./user_team.model.js";
+import Team from "./team.model.js";
+import Muscle_Group from "./muscle_group.model.js";
 
 console.log("index.js");
 
@@ -26,56 +30,111 @@ db.sequelize = sequelize;
 
 db.user = User;
 db.session = Session;
-db.tutorial = Tutorial;
 db.lesson = Lesson;
 db.exercise = Exercise;
+db.player_goal = Player_Goal;
+db.team_goal = Team_Goal;
+db.catalog = Catalog;
+db.user_team = User_Team;
+db.team = Team;
+db.muscle_group = Muscle_Group;
 
-// foreign key for session
-db.user.hasMany(
-  db.session,
-  { as: "session" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
-db.session.belongsTo(
-  db.user,
-  { as: "user" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
+//For Catalog lessons belong to many users & Users belong to many lessons for the relations 
+//Do the same thing for the user_team bridge table. 
 
-// foreign key for tutorials
-db.user.hasMany(
-  db.tutorial,
-  { as: "tutorial" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
-db.tutorial.belongsTo(
-  db.user,
-  { as: "user" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
+//USER RELATIONS 
+db.user.hasMany(db.session, {
+  as: "sessions",
+  foreignKey: { name: "id_user", allowNull: false },
+  onDelete: "CASCADE",
+});
+db.user.hasMany(db.lesson, {
+  as: "lessons",
+  foreignKey: { name: "id_user", allowNull: false },
+  onDelete: "CASCADE",
+});
+db.user.hasMany(db.player_goal, {
+  as: "player_goal", 
+  foreignKey: {name: "id_user", allowNull: false }, 
+  onDelete: "CASCADE", 
+});
+db.user.belongsToMany(db.team, {
+  through: db.user_team,
+  foreignKey: "id_user",
+  otherKey: "id_team",
+  as: "teams",
+});
+// db.user.hasMany(db.team, {
+//   as: "team", 
+//   foreignKey: {name: "id_user"},
+//   onDelete: "CASCADE", 
+// }), 
+// db.user.belongsToMany(db.team, {
+//   as: "team", 
+//   foreignKey: {name: "id_team"},
+//   onDelete: "CASCADE", 
+// }),
 
-// foreign key for lessons
-db.tutorial.hasMany(
-  db.lesson,
-  { as: "lesson" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
-db.lesson.belongsTo(
-  db.tutorial,
-  { as: "tutorial" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
+//SESSION RELATIONS 
+db.session.belongsTo(db.user, {
+  as: "user",
+  foreignKey: { name: "id_user", allowNull: false },
+  onDelete: "CASCADE",
+});
 
-// foreign key for exercises
-db.user.hasMany(
-  db.exercise,
-  { as: "exercise" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
-db.exercise.belongsTo(
-  db.user,
-  { as: "user" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
+//LESSON RELATIONS 
+db.lesson.hasMany(db.exercise, {
+  as: "exercises",
+  foreignKey: { name: "id_lesson", allowNull: false },
+  onDelete: "CASCADE",
+});
+db.lesson.hasOne(db.muscle_group, {
+  as: "muscle_group",
+  foreignKey: {name: "id_lesson", allowNull: false },
+  onDelete: "CASCADE",
+}),
+db.lesson.belongsTo(db.user, {
+  as: "user",
+  foreignKey: { name: "id_user", allowNull: false },
+  onDelete: "CASCADE",
+});
 
+//EXERCISES RELATIONS 
+db.exercise.belongsTo(db.lesson, {
+  as: "lesson",
+  foreignKey: { name: "id_lesson", allowNull: false },
+  onDelete: "CASCADE",
+});
+
+//Player_Goal RELATIONS 
+db.player_goal.belongsTo(db.user,{
+  as: "user",
+  foreignKey: {name: "id_user", allowNull: false },
+  onDelete: "CASCADE",
+});
 export default db;
+
+//TEAM GOAL RELATIONS 
+db.team_goal.belongsTo(db.team, {
+  as: "team", 
+  foreignKey: {name: "id_team", allowNull: true},
+  onDelete: "CASCADE", 
+}),
+
+//TEAM RELATIONS 
+// db.team.hasMany(db.user, {
+//   as: "user",
+//   foreignKey: { name: "id_user", allowNull: false },
+//   onDelete: "CASCADE",
+// });
+// db.team.belongsToMany(db.user, {
+//   as: "user",
+//   foreignKey: {name: "id_user", allowNull: false}, 
+//   onDelete: "CASCADE", 
+// });
+db.team.belongsToMany(db.user, {
+  through: db.user_team,
+  foreignKey: "id_team",
+  otherKey: "id_user",
+  as: "members",
+});
