@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
-console.log("Exercises");
+
 
 const Exercise = SequelizeInstance.define("exercise", {
   //Primary Key

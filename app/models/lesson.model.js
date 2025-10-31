@@ -1,8 +1,6 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
-//A Lesson is a collection of Exercises
-console.log("Lesson's");
 
 const Lesson = SequelizeInstance.define("lesson", {
   //Primary Key 

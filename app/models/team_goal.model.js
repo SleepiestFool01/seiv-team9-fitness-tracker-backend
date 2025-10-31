@@ -1,7 +1,6 @@
 import Sequelize from  "sequelize"; //Used to define the types of a variable within a table
 import SequelizeInstance from "../config/sequelizeInstance.js";// Used to define the table within the database
 
-console.log("Team's Goal");
 
 const Team_Goal = SequelizeInstance.define("team_goal", {
     //Primary Key

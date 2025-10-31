@@ -25,7 +25,6 @@ import Team from "./team.model.js";
 import Muscle_Group from "./muscle_group.model.js";
 import User_Metric from "./user_metric.model.js";
 
-console.log("index.js");
 
 const db = {};
 db.Sequelize = Sequelize;

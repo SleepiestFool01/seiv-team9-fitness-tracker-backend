@@ -1,7 +1,6 @@
 import Sequelize from "sequelize";
 import SequeliseInstance from "../config/sequelizeInstance.js";
 
-console.log("teams");
 
 // A team is comprised of different users, and these users/players are assigned to a team by a coach.
 const Team = SequeliseInstance.define("team", {

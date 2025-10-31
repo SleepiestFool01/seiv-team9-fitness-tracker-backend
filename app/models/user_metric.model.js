@@ -1,7 +1,6 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
-console.log("User Metrics");
 
 const User_Metric = SequelizeInstance.define("user_metric", {
   //Primary Key
