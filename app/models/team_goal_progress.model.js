@@ -1,7 +1,6 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
-console.log("Team Goal Progress");
 
 const Team_Goal_Progress = SequelizeInstance.define("team_goal_progress", {
   //Primary Key

@@ -3,8 +3,6 @@
   import { Router } from "express";
   var router = Router()
 
-console.log("I really hope this works");
-
   // Create a new User
   router.post("/", [authenticate], users.create);
 

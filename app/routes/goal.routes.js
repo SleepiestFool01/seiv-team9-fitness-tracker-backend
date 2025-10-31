@@ -13,7 +13,7 @@ var router = Router()
 
 //I'm still deciding if I want to add functionality for a published and not published goal, if itll just be null or whatever
 // // Retrieve all published goals for a User
-//   router.get( "/:id_user/goals/published", [authenticate], goals.findAllPublished);
+  router.get( "/:id_user/goals/published", [authenticate], goals.findAllPublished);
 
   // Retrieve a single Goal with id_goal
   router.get( "/:id_user/goals/:id_goal", [authenticate], goals.findOne);
@@ -24,4 +24,4 @@ var router = Router()
   // Delete an Goal with id_goal 
   router.delete("/:id_user/goals/:id_goal", [authenticate], goals.delete );
 
-export default router
+export default router;
