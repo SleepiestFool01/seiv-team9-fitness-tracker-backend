@@ -12,11 +12,6 @@ const Team = SequeliseInstance.define("team", {
         autoIncrement: true,
         allowNull: false,
     },
-    //Foreign Keys 
-    id_user_team: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
     //Team Variables
     name: {
         type: Sequelize.STRING,
@@ -24,11 +19,6 @@ const Team = SequeliseInstance.define("team", {
     description:{
         type: Sequelize.STRING,
     },  
-    /*
-    I want to add functionality for the Number of Team members to ve stored here.
-    I also want to ad 
-    */
-
 
 });
 

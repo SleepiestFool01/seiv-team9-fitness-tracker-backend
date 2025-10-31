@@ -1,51 +1,44 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
-console.log("User Metrics");
+console.log("Team Goal Progress");
 
-const User_Metric = SequelizeInstance.define("user_metric", {
+const Team_Goal_Progress = SequelizeInstance.define("team_goal_progress", {
   //Primary Key
-  id_user_metric: {
+  id_team_goal_progress: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
+
   //Foreign Keys
-  id_user: {
+  id_team_goal: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
 
-  //Timestamp for this measurement
+  //Timestamp
   recorded_at: {
     type: Sequelize.DATE,
     allowNull: false,
     defaultValue: Sequelize.NOW,
   },
 
-  //Measurements
-  weight_kg: {
+  //Aggregated/summary performance
+  avg_time: {
     type: Sequelize.FLOAT,
     allowNull: true,
   },
-  height_cm: {
-    type: Sequelize.DECIMAL(5, 2),
-    allowNull: true,
-  },
-  mile_time_min: {
+  avg_weight: {
     type: Sequelize.FLOAT,
     allowNull: true,
   },
-  bench_press_lb: {
-    type: Sequelize.FLOAT,
+  avg_reps: {
+    type: Sequelize.INTEGER,
     allowNull: true,
   },
-  squat_lb: {
-    type: Sequelize.FLOAT,
-    allowNull: true,
-  },
-  deadlift_lb: {
-    type: Sequelize.FLOAT,
+  sample_size: {
+    type: Sequelize.INTEGER,
     allowNull: true,
   },
   notes: {
@@ -54,4 +47,4 @@ const User_Metric = SequelizeInstance.define("user_metric", {
   },
 });
 
-export default User_Metric;
+export default Team_Goal_Progress;

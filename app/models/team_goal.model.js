@@ -29,7 +29,7 @@ const Team_Goal = SequelizeInstance.define("team_goal", {
     description:{
         type: Sequelize.STRING, 
     },
-    // I want to add the average times or reps for the teams progress towards a goal here. 
+
     avgTime:{
         type: Sequelize.FLOAT, 
     },

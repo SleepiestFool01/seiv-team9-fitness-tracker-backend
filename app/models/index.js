@@ -17,6 +17,8 @@ import Lesson from "./lesson.model.js";
 import Exercise from "./exercise.model.js";
 import Player_Goal from "./player_goal.model.js";
 import Team_Goal from "./team_goal.model.js";
+import Player_Goal_Progress from "./player_goal_progress.model.js";
+import Team_Goal_Progress from "./team_goal_progress.model.js";
 import Catalog from "./catalog.model.js";
 import User_Team from "./user_team.model.js";
 import Team from "./team.model.js";
@@ -34,7 +36,9 @@ db.session = Session;
 db.lesson = Lesson;
 db.exercise = Exercise;
 db.player_goal = Player_Goal;
+db.player_goal_progress = Player_Goal_Progress;
 db.team_goal = Team_Goal;
+db.team_goal_progress = Team_Goal_Progress;
 db.catalog = Catalog;
 db.user_team = User_Team;
 db.team = Team;
@@ -80,15 +84,22 @@ db.lesson.hasMany(db.exercise, {
   foreignKey: { name: "id_lesson", allowNull: false },
   onDelete: "CASCADE",
 });
-db.lesson.hasOne(db.muscle_group, {
-  as: "muscle_group",
-  foreignKey: {name: "id_lesson", allowNull: false },
-  onDelete: "CASCADE",
-}),
 db.lesson.belongsTo(db.user, {
   as: "user",
   foreignKey: { name: "id_user", allowNull: false },
   onDelete: "CASCADE",
+});
+
+db.muscle_group.hasMany(db.lesson, {
+  as: "lessons",
+  foreignKey: { name: "id_muscle_group", allowNull: false },
+  onDelete: "RESTRICT",
+});
+
+db.lesson.belongsTo(db.muscle_group, {
+  as: "muscle_group",
+  foreignKey: { name: "id_muscle_group", allowNull: false },
+  onDelete: "RESTRICT",
 });
 
 //EXERCISES RELATIONS 
@@ -104,6 +115,24 @@ db.player_goal.belongsTo(db.user,{
   foreignKey: {name: "id_user", allowNull: false },
   onDelete: "CASCADE",
 });
+
+db.player_goal.hasMany(db.player_goal_progress, {
+  as: "progress_entries",
+  foreignKey: { name: "id_player_goal", allowNull: false },
+  onDelete: "CASCADE",
+});
+
+db.player_goal_progress.belongsTo(db.player_goal, {
+  as: "goal",
+  foreignKey: { name: "id_player_goal", allowNull: false },
+  onDelete: "CASCADE",
+});
+
+db.player_goal_progress.belongsTo(db.user_metric, {
+  as: "metric_snapshot",
+  foreignKey: { name: "id_user_metric", allowNull: true },
+  onDelete: "SET NULL",
+});
 export default db;
 
 //TEAM GOAL RELATIONS 
@@ -113,13 +142,24 @@ db.team_goal.belongsTo(db.team, {
   onDelete: "CASCADE", 
 }),
 
+db.team_goal.hasMany(db.team_goal_progress, {
+  as: "progress_entries",
+  foreignKey: { name: "id_team_goal", allowNull: false },
+  onDelete: "CASCADE",
+});
+
+db.team_goal_progress.belongsTo(db.team_goal, {
+  as: "goal",
+  foreignKey: { name: "id_team_goal", allowNull: false },
+  onDelete: "CASCADE",
+});
+
 db.team.belongsToMany(db.user, {
   through: db.user_team,
   foreignKey: "id_team",
   otherKey: "id_user",
   as: "members",
 });
-
 
 //USER METRIC RELATIONS
 db.user.hasMany(db.user_metric, {
@@ -133,4 +173,3 @@ db.user_metric.belongsTo(db.user, {
   foreignKey: { name: "id_user", allowNull: false },
   onDelete: "CASCADE",
 });
-

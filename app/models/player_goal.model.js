@@ -34,10 +34,6 @@ const Player_Goal = SequelizeInstance.define("player_goal", {
     playerReps:{
         type: Sequelize.INTEGER,
     },
-    playerWeight: {
-        type: Sequelize.FLOAT,
-    },
-    //add a progress meter so the user can input their data and it'll update the back end
 });
 
 export default Player_Goal;

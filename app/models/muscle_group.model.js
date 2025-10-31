@@ -11,11 +11,6 @@ const Muscle_Group = SequelizeInstance.define("muscle_group", {
     autoIncrement: true,
     primaryKey: true,
   },
-  //Foreign Keys 
-  id_lesson: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
   //Table Variables 
   muscle: {
     type: Sequelize.STRING,
