@@ -10,17 +10,11 @@ const Exercise = SequelizeInstance.define("exercise", {
     autoIncrement: true,
     primaryKey: true,
   },
-  
   //Foreign Keys 
   id_lesson: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  id_goal: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-
   //Exercise Variables
   name: {
       type: Sequelize.STRING,
