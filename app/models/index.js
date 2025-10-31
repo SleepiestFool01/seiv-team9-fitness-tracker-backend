@@ -21,6 +21,7 @@ import Catalog from "./catalog.model.js";
 import User_Team from "./user_team.model.js";
 import Team from "./team.model.js";
 import Muscle_Group from "./muscle_group.model.js";
+import User_Metric from "./user_metric.model.js";
 
 console.log("index.js");
 
@@ -38,6 +39,7 @@ db.catalog = Catalog;
 db.user_team = User_Team;
 db.team = Team;
 db.muscle_group = Muscle_Group;
+db.user_metric = User_Metric;
 
 //For Catalog lessons belong to many users & Users belong to many lessons for the relations 
 //Do the same thing for the user_team bridge table. 
@@ -64,16 +66,6 @@ db.user.belongsToMany(db.team, {
   otherKey: "id_team",
   as: "teams",
 });
-// db.user.hasMany(db.team, {
-//   as: "team", 
-//   foreignKey: {name: "id_user"},
-//   onDelete: "CASCADE", 
-// }), 
-// db.user.belongsToMany(db.team, {
-//   as: "team", 
-//   foreignKey: {name: "id_team"},
-//   onDelete: "CASCADE", 
-// }),
 
 //SESSION RELATIONS 
 db.session.belongsTo(db.user, {
@@ -121,20 +113,24 @@ db.team_goal.belongsTo(db.team, {
   onDelete: "CASCADE", 
 }),
 
-//TEAM RELATIONS 
-// db.team.hasMany(db.user, {
-//   as: "user",
-//   foreignKey: { name: "id_user", allowNull: false },
-//   onDelete: "CASCADE",
-// });
-// db.team.belongsToMany(db.user, {
-//   as: "user",
-//   foreignKey: {name: "id_user", allowNull: false}, 
-//   onDelete: "CASCADE", 
-// });
 db.team.belongsToMany(db.user, {
   through: db.user_team,
   foreignKey: "id_team",
   otherKey: "id_user",
   as: "members",
 });
+
+
+//USER METRIC RELATIONS
+db.user.hasMany(db.user_metric, {
+  as: "metrics",
+  foreignKey: { name: "id_user", allowNull: false },
+  onDelete: "CASCADE",
+});
+
+db.user_metric.belongsTo(db.user, {
+  as: "user",
+  foreignKey: { name: "id_user", allowNull: false },
+  onDelete: "CASCADE",
+});
+
