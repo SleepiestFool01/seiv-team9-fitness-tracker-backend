@@ -21,7 +21,7 @@ const router = Router();
 router.use("/", AuthRoutes);
 router.use("/users", UserRoutes);
 router.use("/lessons", LessonRoutes);
-router.use("/exercise", ExerciseRoutes);
+router.use("/lesson", ExerciseRoutes);//lesson because exercises are stored within a lesson I might change this later
 router.use("/catalog", CatalogRoutes);
 router.use("/muscle-groups", MuscleGroupRoutes);
 router.use("/player-goals", PlayerGoalRoutes);
