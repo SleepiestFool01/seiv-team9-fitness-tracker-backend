@@ -11,7 +11,7 @@
   router.get("/", [authenticate], lessons.findAll);
 
   // Retrieve all Lessons for a user
-  router.get("/userLes/:id_user", [authenticate], lessons.findAllForUser);
+  router.get("/userLesson/:id_user", [authenticate], lessons.findAllForUser);
 
   // Retrieve a single Lesson with id_lesson
   router.get("/:id_lesson", [authenticate], lessons.findOne);
