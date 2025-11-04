@@ -11,11 +11,7 @@ router.post("/", [authenticate], teamGoalController.create);
 router.get("/", [authenticate], teamGoalController.findAll);
 
 // Retrieve team goals for a specific team
-router.get(
-  "/team/:id_team",
-  [authenticate],
-  teamGoalController.findAllForTeam
-);
+router.get("/team/:id_team", [authenticate], teamGoalController.findAllForTeam);
 
 // Retrieve a single team goal
 router.get("/:id_team_goal", [authenticate], teamGoalController.findOne);

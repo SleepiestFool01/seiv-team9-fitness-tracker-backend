@@ -11,31 +11,15 @@ router.post("/", [authenticate], playerGoalProgressController.create);
 router.get("/", [authenticate], playerGoalProgressController.findAll);
 
 // Retrieve progress entries for a specific goal
-router.get(
-  "/goal/:id_player_goal",
-  [authenticate],
-  playerGoalProgressController.findAllForGoal
-);
+router.get("/goal/:id_player_goal", [authenticate], playerGoalProgressController.findAllForGoal);
 
 // Retrieve a single progress entry
-router.get(
-  "/:id_player_goal_progress",
-  [authenticate],
-  playerGoalProgressController.findOne
-);
+router.get("/:id_player_goal_progress", [authenticate], playerGoalProgressController.findOne);
 
 // Update a progress entry
-router.put(
-  "/:id_player_goal_progress",
-  [authenticate],
-  playerGoalProgressController.update
-);
+router.put("/:id_player_goal_progress", [authenticate], playerGoalProgressController.update);
 
 // Delete a progress entry
-router.delete(
-  "/:id_player_goal_progress",
-  [authenticate],
-  playerGoalProgressController.delete
-);
+router.delete("/:id_player_goal_progress", [authenticate], playerGoalProgressController.delete);
 
 export default router;

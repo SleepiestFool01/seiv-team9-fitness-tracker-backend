@@ -11,24 +11,12 @@ router.post("/", [authenticate], userTeamController.create);
 router.get("/", [authenticate], userTeamController.findAll);
 
 // Retrieve memberships for a specific user
-router.get(
-  "/user/:id_user",
-  [authenticate],
-  userTeamController.findAllForUser
-);
+router.get("/user/:id_user", [authenticate], userTeamController.findAllForUser);
 
 // Retrieve memberships for a specific team
-router.get(
-  "/team/:id_team",
-  [authenticate],
-  userTeamController.findAllForTeam
-);
+router.get("/team/:id_team", [authenticate], userTeamController.findAllForTeam);
 
 // Delete a membership
-router.delete(
-  "/:id_user/:id_team",
-  [authenticate],
-  userTeamController.delete
-);
+router.delete("/:id_user/:id_team", [authenticate], userTeamController.delete);
 
 export default router;

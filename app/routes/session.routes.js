@@ -11,11 +11,7 @@ router.post("/", [authenticate], sessionController.create);
 router.get("/", [authenticate], sessionController.findAll);
 
 // Retrieve sessions for a specific user
-router.get(
-  "/user/:id_user",
-  [authenticate],
-  sessionController.findAllForUser
-);
+router.get("/user/:id_user", [authenticate], sessionController.findAllForUser);
 
 // Retrieve a single session
 router.get("/:id_session", [authenticate], sessionController.findOne);

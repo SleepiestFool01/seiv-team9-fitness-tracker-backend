@@ -14,17 +14,9 @@ router.get("/", [authenticate], catalogController.findAll);
 router.get("/user/:id_user", [authenticate], catalogController.findAllForUser);
 
 // Retrieve a specific catalog entry
-router.get(
-  "/:id_user/:id_lesson",
-  [authenticate],
-  catalogController.findOne
-);
+router.get("/:id_user/:id_lesson", [authenticate], catalogController.findOne);
 
 // Delete a catalog entry
-router.delete(
-  "/:id_user/:id_lesson",
-  [authenticate],
-  catalogController.delete
-);
+router.delete("/:id_user/:id_lesson", [authenticate], catalogController.delete);
 
 export default router;

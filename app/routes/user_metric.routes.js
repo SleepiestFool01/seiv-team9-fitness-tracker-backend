@@ -11,31 +11,15 @@ router.post("/", [authenticate], userMetricController.create);
 router.get("/", [authenticate], userMetricController.findAll);
 
 // Retrieve metrics for a specific user
-router.get(
-  "/user/:id_user",
-  [authenticate],
-  userMetricController.findAllForUser
-);
+router.get("/user/:id_user", [authenticate], userMetricController.findAllForUser);
 
 // Retrieve a single user metric
-router.get(
-  "/:id_user_metric",
-  [authenticate],
-  userMetricController.findOne
-);
+router.get("/:id_user_metric", [authenticate], userMetricController.findOne);
 
 // Update a user metric
-router.put(
-  "/:id_user_metric",
-  [authenticate],
-  userMetricController.update
-);
+router.put("/:id_user_metric", [authenticate], userMetricController.update);
 
 // Delete a user metric
-router.delete(
-  "/:id_user_metric",
-  [authenticate],
-  userMetricController.delete
-);
+router.delete("/:id_user_metric", [authenticate], userMetricController.delete);
 
 export default router;
