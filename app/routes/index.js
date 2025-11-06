@@ -19,6 +19,7 @@ import UserTeamRoutes from "./user_team.routes.js";
 const router = Router();
 
 router.use("/", AuthRoutes);
+router.use("/user", UserRoutes);
 router.use("/users", UserRoutes);
 router.use("/lessons", LessonRoutes);
 router.use("/lesson", ExerciseRoutes);//lesson because exercises are stored within a lesson I might change this later
@@ -32,5 +33,6 @@ router.use("/team-goals", TeamGoalRoutes);
 router.use("/team-goal-progress", TeamGoalProgressRoutes);
 router.use("/user-metrics", UserMetricRoutes);
 router.use("/user-teams", UserTeamRoutes);
+
 
 export default router;

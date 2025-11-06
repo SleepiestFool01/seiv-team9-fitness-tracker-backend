@@ -60,17 +60,13 @@ exports.findOne = (req, res) => {
   User.findByPk(id_user)
     .then((data) => {
       if (data) {
-        res.send(data);
+        res.send(data); // ✅ this sends your profile data
       } else {
-        res.status(404).send({
-          message: `Cannot find User with id_user=${id_user}.`,
-        });
+        res.status(404).send({ message: `Cannot find User with id_user=${id_user}.` });
       }
     })
     .catch((err) => {
-      res.status(500).send({
-        message: "Error retrieving User with id_user=" + id_user,
-      });
+      res.status(500).send({ message: "Error retrieving User with id_user=" + id_user });
     });
 };
 
@@ -100,29 +96,51 @@ exports.findByEmail = (req, res) => {
     });
 };
 
+// Retrieve user profile easily
+exports.getProfile = async (req, res) => {
+  try {
+    const id_user = req.params.id_user;
+    const data = await User.findByPk(id_user);
+
+    if (!data) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    res.send(data);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
+
 // Update a User by the id in the request
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const id_user = req.params.id_user;
 
-  User.update(req.body, {
-    where: { id_user },
-  })
-    .then((num) => {
-      if (num == 1) {
-        res.send({
-          message: "User was updated successfully.",
-        });
-      } else {
-        res.send({
-          message: `Cannot update User with id_user=${id_user}. Maybe User was not found or req.body is empty!`,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Error updating User with id_user=" + id_user,
-      });
+  // Only allow valid fields to be updated
+  const allowedFields = ["fName", "lName", "email", "role"];
+  const updateData = {};
+
+  allowedFields.forEach((field) => {
+    if (req.body[field] !== undefined) {
+      updateData[field] = req.body[field];
+    }
+  });
+
+  console.log("Updating user:", id_user, "with:", updateData);
+
+  try {
+    const [rowsUpdated] = await User.update(updateData, {
+      where: { id_user }
     });
+
+    if (rowsUpdated === 1) {
+      res.send({ message: "User updated successfully!" });
+    } else {
+      res.status(400).send({ message: "⚠️ No user updated" });
+    }
+  } catch (err) {
+    res.status(500).send({ message: "Error updating user: " + err });
+  }
 };
 
 // Update only the role field
