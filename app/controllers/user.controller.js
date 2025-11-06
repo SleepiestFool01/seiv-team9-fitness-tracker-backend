@@ -125,6 +125,34 @@ exports.update = (req, res) => {
     });
 };
 
+// Update only the role field
+exports.updateRole = (req, res) => {
+  const id_user = req.params.id_user;
+  const role = req.body.role;
+
+  if (!role) {
+    return res.status(400).send({ message: "Role cannot be empty!" });
+  }
+
+  User.update({ role }, { where: { id_user } })
+    .then(([count]) => {
+      if (count === 1) {
+        res.send({ message: "Role updated successfully!", role });
+      } else {
+        res.status(404).send({
+          message: `User not found`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating role: " + err.message,
+      });
+    });
+};
+
+
+
 // Delete a User with the specified id in the request
 exports.delete = (req, res) => {
   const id_user = req.params.id_user;
