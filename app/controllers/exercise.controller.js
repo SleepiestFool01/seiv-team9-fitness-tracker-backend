@@ -6,30 +6,25 @@ const exports = {};
 
 // Create and Save a new Exercise
 exports.create = (req, res) => {
-  // Validate request
-  if (!req.body.title) {
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-    return;
+  const id_lesson = req.params.id_lesson;
+  if (!req.body.name) {
+    return res.status(400).send({ message: "Exercise name cannot be empty!" });
   }
 
-  // Create a Exercise
   const exercise = {
-    id_lesson: req.params.id_lesson,
-    title: req.body.title,
+    name: req.body.name,
     description: req.body.description,
-    published: req.body.published ? req.body.published : false,
+    reps: req.body.reps,
+    sets: req.body.sets,
+    id_lesson: id_lesson,
   };
-  // Save Exercise in the database
-  Exercise.create(exercise)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
+
+  Exercise
+    .create(exercise)
+    .then(data => res.send(data))
+    .catch(err => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Exercise.",
+        message: err.message || "Error creating Exercise."
       });
     });
 };
