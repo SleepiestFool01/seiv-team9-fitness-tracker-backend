@@ -24,6 +24,8 @@ router.get("/profile/:id_user", users.findOne);
 // (Optional) Get user profile by ID
 router.get("/profile/:id_user", users.getProfile);
 
+router.get("/athletes", users.findAllAthletes);
+
 // Update a User with id_user
 //router.put("/:id_user", [authenticate], users.update);
 
