@@ -13,6 +13,11 @@ const Session = SequelizeInstance.define("session", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  //
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   //Session Variables 
   token: {
     type: Sequelize.STRING(3000),

@@ -47,11 +47,6 @@ INSERT INTO catalogs (id_user, id_lesson, createdAt, updatedAt) VALUES
   (5, 1, '2024-04-01 12:33:00', '2024-04-03 07:45:00'),
   (6, 3, '2024-04-01 12:34:00', '2024-04-23 16:00:00');
 
-INSERT INTO sessions (id_session, id_user, token, expirationDate, createdAt, updatedAt) VALUES
-  (1, 2, 'session-coach-brian-2024-01', '2030-07-01 12:00:00', '2024-04-02 08:00:00', '2024-04-02 08:00:00'),
-  (2, 4, 'session-athlete-diego-2024-01', '2030-06-01 08:00:00', '2024-04-02 08:05:00', '2024-04-02 08:05:00'),
-  (3, 5, 'session-athlete-eva-2024-01',   '2030-06-15 08:00:00', '2024-04-02 08:10:00', '2024-04-02 08:10:00');
-
 INSERT INTO user_metrics (id_user_metric, id_user, recorded_at, weight_kg, height_cm, mile_time_min, bench_press_lb, squat_lb, deadlift_lb, notes, createdAt, updatedAt) VALUES
   (1, 4, '2024-03-15 08:30:00', 82.5, 180.00, 6.85, 185, 265, 305, 'Post off-season baseline.', '2024-03-15 08:30:00', '2024-03-15 08:30:00'),
   (2, 5, '2024-03-15 08:45:00', 65.2, 165.00, 7.40, 95, 155, 185, 'Maintaining during in-season.', '2024-03-15 08:45:00', '2024-03-15 08:45:00'),
