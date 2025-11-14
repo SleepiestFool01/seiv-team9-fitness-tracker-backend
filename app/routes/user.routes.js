@@ -15,6 +15,10 @@ router.put("/role/:id_user", users.update);
 // Retrieve a single User with id_user
 //router.get("/:id_user", [authenticate], users.findOne);
 
+// Retrieve all athletes
+router.get("/athletes", [authenticate], users.findAllAthletes);
+
+
 // (Optional) Get user by ID
 router.get("/:id_user", users.findOne);
 
