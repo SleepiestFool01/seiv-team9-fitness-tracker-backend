@@ -1,4 +1,3 @@
-
 import db  from "../models/index.js";
 import authconfig  from "../config/auth.config.js";
 import { OAuth2Client } from "google-auth-library";
@@ -88,8 +87,6 @@ exports.login = async (req, res) => {
     await User.create(user)
       .then((data) => {
         user = data.dataValues;
-        res.status(200).send({ message: "User was registered successfully!" });
-        return
       })
       .catch((err) => {
         res.status(500).send({ message: err.message });
@@ -112,7 +109,7 @@ exports.login = async (req, res) => {
         }
       })
       .catch((err) => {
-        console.log("Error updating User with id_user=" + user.id_user + " " + err);
+        console.log("Error updating User with id=" + user.id_user + " " + err);
       });
   }
 
@@ -253,7 +250,7 @@ exports.authorize = async (req, res) => {
         console.log("updated user's google token stuff");
       } else {
         console.log(
-            `Cannot update User with id_user=${user.id_user}. Maybe User was not found or req.body is empty!`
+          `Cannot update User with id=${user.id_user}. Maybe User was not found or req.body is empty!`
         );
       }
       let userInfo = {

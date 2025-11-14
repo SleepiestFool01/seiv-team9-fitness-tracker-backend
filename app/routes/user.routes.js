@@ -15,8 +15,10 @@
   // Update a User with id_user
   router.put("/:id_user", [authenticate], users.update);
 
+  // Update User's Role
+  router.put("/role/:id_user", [authenticate], users.updateRole);
+
   // Delete a User with id_user
   router.delete("/:id_user", [authenticate], users.delete);
-
 
   export default router;
