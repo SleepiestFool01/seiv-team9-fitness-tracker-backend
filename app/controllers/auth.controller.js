@@ -154,6 +154,7 @@ exports.login = async (req, res) => {
             lName: user.lName,
             id_user: user.id_user,
             token: session.token,
+            role: user.role, //added so I can checl the role in the freindly login & check if a user is a admin, Coach, or a Player
             // refresh_token: user.refresh_token,
             // expiration_date: user.expiration_date
           };
@@ -195,6 +196,7 @@ exports.login = async (req, res) => {
           lName: user.lName,
           id_user: user.id_user,
           token: token,
+          role: user.role,
           // refresh_token: user.refresh_token,
           // expiration_date: user.expiration_date
         };
