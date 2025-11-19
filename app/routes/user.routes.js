@@ -42,5 +42,7 @@ router.put("/:id_user", users.update);
 // Delete a User
 //router.delete("/:id_user", [authenticate], users.delete);
 
+router.put("user/:id_user",[authenticate], users.updateRole);
+
 export default router;
 
