@@ -56,7 +56,7 @@ exports.findAll = (req, res) => {
 // Find all users with role = "athlete"
 exports.findAllAthletes = (req, res) => {
   db.user
-    .findAll({ where: { role: "athletes" } })
+    .findAll({ where: { role: "athlete" } })
     .then(data => res.send(data))
     .catch(err => {
       res.status(500).send({
