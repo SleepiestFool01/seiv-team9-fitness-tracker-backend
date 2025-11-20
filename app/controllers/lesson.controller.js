@@ -69,6 +69,7 @@ exports.findAllForUser = (req, res) => {
       });
     });
 };
+
 // Find a single Lesson with an id
 exports.findOne = (req, res) => {
   const id_lesson = req.params.id_lesson;
@@ -88,6 +89,7 @@ exports.findOne = (req, res) => {
       });
     });
 };
+
 // Update a Lesson by the id in the request
 exports.update = (req, res) => {
   const id_lesson = req.params.id_lesson;

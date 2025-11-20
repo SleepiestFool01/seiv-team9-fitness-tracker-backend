@@ -53,6 +53,18 @@ exports.findAll = (req, res) => {
     });
 };
 
+// Find all users with role = "athlete"
+exports.findAllAthletes = (req, res) => {
+  db.user
+    .findAll({ where: { role: "athlete" } })
+    .then(data => res.send(data))
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving athletes.",
+      });
+    });
+};
+
 // Find a single User with an id
 exports.findOne = (req, res) => {
   const id_user = req.params.id_user;
