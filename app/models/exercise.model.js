@@ -1,8 +1,6 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
-
-
 const Exercise = SequelizeInstance.define("exercise", {
   //Primary Key
   id_exercise: {
