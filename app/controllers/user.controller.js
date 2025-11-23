@@ -156,7 +156,14 @@ exports.updateRole = (req, res) => {
 
 
 
-
+// Retrieve all users with role "athletes"
+exports.findAllAthletes = (req, res) => {
+  User.findAll({ where: { role: "athletes" } })
+    .then((data) => res.send(data))
+    .catch((err) => res.status(500).send({
+      message: err.message || "Error retrieving athletes."
+    }));
+};
 
 
 

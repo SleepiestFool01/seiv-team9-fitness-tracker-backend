@@ -63,44 +63,49 @@ exports.findOne = (req, res) => {
 
 // Update a player goal
 exports.update = (req, res) => {
+  const id = parseInt(req.params.id_player_goal);
+
   PlayerGoal.update(req.body, {
-    where: { id_player_goal: req.params.id_player_goal },
+    where: { id_player_goal: id }, // Use the converted integer ID
   })
-    .then((num) => {
-      if (num === 1) {
-        res.send({ message: "Player goal updated successfully." });
-      } else {
-        res.status(404).send({
-          message: "Player goal not found or body empty.",
-        });
-      }
+
+  .then((num) => {
+
+    const numAffected = Array.isArray(num) ? num[0] : num; 
+      
+    if (numAffected === 1) { // Check for the number 1 (one row updated)
+      res.status(200).send({ message: "Player goal updated successfully." });
+    } else {
+      res.status(404).send({
+        message: "Player goal not found or body empty.",
+      });
+    }
+  })
+
+  .catch((err) =>
+    res.status(500).send({
+      message: err.message || "Error updating player goal.",
     })
-    .catch((err) =>
-      res.status(500).send({
-        message: err.message || "Error updating player goal.",
-      })
-    );
+  );
 };
 
 // Delete a player goal
 exports.delete = (req, res) => {
+  const id = parseInt(req.params.id_player_goal);
+
   PlayerGoal.destroy({
-    where: { id_player_goal: req.params.id_player_goal },
+    where: { id_player_goal: id },
   })
-    .then((num) => {
-      if (num === 1) {
-        res.status(204).send();
-      } else {
-        res.status(404).send({
-          message: "Player goal not found.",
-        });
-      }
-    })
-    .catch((err) =>
-      res.status(500).send({
-        message: err.message || "Error deleting player goal.",
-      })
-    );
+
+  .then((num) => {
+    if (num === 1) {
+      res.status(204).send(); 
+    } else {
+      res.status(404).send({
+        message: "Player goal not found.",
+      });
+    }
+  })
 };
 
 export default exports;

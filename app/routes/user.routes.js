@@ -9,6 +9,9 @@
   // Retrieve all People/Users
   router.get("/", [authenticate], users.findAll);
 
+    // Retrieve all athletes
+router.get("/athletes", [authenticate], users.findAllAthletes);
+
   // Retrieve a single User with id_user
   router.get("/:id_user", [authenticate], users.findOne);
 
@@ -21,4 +24,4 @@
   // Delete a User with id_user
   router.delete("/:id_user", [authenticate], users.delete);
 
-  export default router;
+  export default router; 
