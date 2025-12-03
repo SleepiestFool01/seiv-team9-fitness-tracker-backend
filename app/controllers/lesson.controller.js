@@ -19,6 +19,7 @@ exports.create = (req, res) => {
     description: req.body.description,
     published: req.body.published ? req.body.published : false,
     id_user: req.body.id_user,
+    id_muscle_group: req.body.id_muscle_group,
   };
   // Save Lesson in the database
   Lesson.create(lesson)
