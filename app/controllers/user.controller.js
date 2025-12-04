@@ -19,7 +19,7 @@ exports.create = (req, res) => {
     fName: req.body.fName,
     lName: req.body.lName,
     email: req.body.email,
-    bio: req.body.bio ?? "",
+    bio: req.body.bio ?? undefined,
     // refresh_token: req.body.refresh_token,
     // expiration_date: req.body.expiration_date
   };
@@ -72,7 +72,7 @@ exports.createAthlete = (req, res) => {
     lName: req.body.lName,
     email: req.body.email,
     role: "athletes",
-    bio: req.body.bio ?? "",
+    bio: req.body.bio ?? undefined,
   };
 
   User.create(athlete)

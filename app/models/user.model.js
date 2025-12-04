@@ -29,7 +29,7 @@ const User = SequelizeInstance.define("user", {
   bio: {
     type: Sequelize.TEXT,
     allowNull: true,
-    defaultValue: "",
+    defaultValue: "Share your goals, experience, or anything your coach should know.",
   },
 
 });
