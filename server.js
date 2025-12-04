@@ -5,7 +5,8 @@ import cors from "cors";
 
 import db  from "./app/models/index.js";
 
-db.sequelize.sync();
+// Add new columns without manual migrations
+db.sequelize.sync({ alter: true });
 
 const app = express();
 

@@ -26,6 +26,11 @@ const User = SequelizeInstance.define("user", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  bio: {
+    type: Sequelize.TEXT,
+    allowNull: true,
+    defaultValue: "",
+  },
 
 });
 
