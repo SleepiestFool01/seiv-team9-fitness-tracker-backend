@@ -3,6 +3,9 @@
   import { Router } from "express";
   var router = Router()
 
+  // Retrieve all Exercises (regardless of lesson)
+  router.get("/", [authenticate], exercises.findAll);
+
   // Create a new Exercise for a Lesson
   router.post("/:id_lesson/exercises", [authenticate], exercises.create);
 

@@ -37,22 +37,11 @@ exports.create = (req, res) => {
 };
 // Retrieve all Exercises from the database.
 exports.findAll = (req, res) => {
-  const id_exercise = req.query.id_exercise;
-  const condition = id_exercise
-    ? {
-        id_exercise: {
-          [Op.like]: `%${id_exercise}%`,
-        },
-      }
-    : null;
-
-  Exercise.findAll({ where: condition })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
+  Exercise.findAll()
+    .then(data => res.send(data))
+    .catch(err => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving exercises.",
+        message: err.message || "Error retrieving all exercises."
       });
     });
 };
