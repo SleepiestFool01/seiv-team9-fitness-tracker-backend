@@ -25,6 +25,7 @@ import Team from "./team.model.js";
 import Muscle_Group from "./muscle_group.model.js";
 import User_Metric from "./user_metric.model.js";
 import Team_Lesson from "./team_lesson.model.js";
+import User_Lesson from "./user_lesson.model.js";
 
 
 const db = {};
@@ -45,6 +46,7 @@ db.team = Team;
 db.team_lesson = Team_Lesson;
 db.muscle_group = Muscle_Group;
 db.user_metric = User_Metric;
+db.user_lesson = User_Lesson;
 
 // =============================
 // TEAM ↔ USER_TEAM association
@@ -95,6 +97,31 @@ db.team_lesson.belongsTo(db.team, {
 });
 
 db.team_lesson.belongsTo(db.lesson, {
+  foreignKey: "id_lesson",
+  as: "lesson",
+});
+
+// USER ↔ LESSON (Assigned Workouts) RELATIONS
+db.user.belongsToMany(db.lesson, {
+  through: db.user_lesson,
+  foreignKey: "id_user",
+  otherKey: "id_lesson",
+  as: "assigned_lessons",
+});
+
+db.lesson.belongsToMany(db.user, {
+  through: db.user_lesson,
+  foreignKey: "id_lesson",
+  otherKey: "id_user",
+  as: "assigned_users",
+});
+
+db.user_lesson.belongsTo(db.user, {
+  foreignKey: "id_user",
+  as: "user",
+});
+
+db.user_lesson.belongsTo(db.lesson, {
   foreignKey: "id_lesson",
   as: "lesson",
 });
@@ -230,7 +257,6 @@ db.user_metric.belongsTo(db.user, {
 });
 
 export default db;
-
 
 
 

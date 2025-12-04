@@ -2,6 +2,8 @@
 import db from "../models/index.js";
 
 const TeamLesson = db.team_lesson;
+const UserLesson = db.user_lesson;
+const UserTeam = db.user_team;
 const exportsObj = {};
 
 // Create a new team–lesson link (assign plan to team)
@@ -15,7 +17,19 @@ exportsObj.create = async (req, res) => {
   }
 
   try {
+    // Create the team-plan mapping
     const link = await TeamLesson.create({ id_team, id_lesson });
+
+    // Assign the lesson to all team members via user_lesson bridge
+    const members = await UserTeam.findAll({ where: { id_team } });
+    const rows = members.map((m) => ({
+      id_user: m.id_user,
+      id_lesson,
+    }));
+    if (rows.length) {
+      await UserLesson.bulkCreate(rows, { ignoreDuplicates: true });
+    }
+
     res.status(201).send(link);
   } catch (err) {
     console.error("TeamLesson create ERROR:", err);
@@ -83,6 +97,15 @@ exportsObj.delete = async (req, res) => {
   const { id_team, id_lesson } = req.params;
 
   try {
+    // Remove team-to-user lesson assignments for current members
+    const members = await UserTeam.findAll({ where: { id_team } });
+    const memberIds = members.map((m) => m.id_user);
+    if (memberIds.length) {
+      await UserLesson.destroy({
+        where: { id_lesson, id_user: memberIds },
+      });
+    }
+
     const num = await TeamLesson.destroy({
       where: { id_team, id_lesson },
     });
