@@ -12,7 +12,7 @@ const Lesson = SequelizeInstance.define("lesson", {
   //Foreign Keys 
   id_user: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true, // optional: creator/owner, but not required to assign lesson
   },
   //Relates to what type of muscle this lesson works out.
   id_muscle_group: {
