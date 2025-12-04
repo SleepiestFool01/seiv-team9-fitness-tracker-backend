@@ -35,7 +35,7 @@ router.use("/team-goals", TeamGoalRoutes);
 router.use("/team-goal-progress", TeamGoalProgressRoutes);
 router.use("/user-metrics", UserMetricRoutes);
 router.use("/user-teams", UserTeamRoutes);
-router.use("/exercise", ExerciseRoutes);
 router.use("/user-lessons", UserLessonRoutes);
+router.use("/exercises", ExerciseRoutes);
 
 export default router;
