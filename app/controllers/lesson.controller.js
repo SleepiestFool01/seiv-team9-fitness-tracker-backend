@@ -6,32 +6,30 @@ const exports = {};
 
 // Create and Save a new Lesson
 exports.create = (req, res) => {
-  // Validate request
-  if (!req.body.title) {
-    res.status(400).send({
-      message: "Content can not be empty!",
+  if (!req.body.title || !req.body.id_user || !req.body.id_muscle_group) {
+    return res.status(400).send({
+      message: "title, id_user, and id_muscle_group are required."
     });
-    return;
   }
-  // Create a Lesson
+
   const lesson = {
     title: req.body.title,
     description: req.body.description,
-    published: req.body.published ? req.body.published : false,
+    published: req.body.published || false,
     id_user: req.body.id_user,
+    id_muscle_group: req.body.id_muscle_group,   // ← REQUIRED
   };
-  // Save Lesson in the database
+
   Lesson.create(lesson)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
+    .then(data => res.send(data))
+    .catch(err => {
+      console.error("LESSON CREATE ERROR:", err);
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Lesson.",
+        message: err.message || "Some error occurred while creating the Lesson."
       });
     });
 };
+
 // Retrieve all Lessons from the database.
 exports.findAll = (req, res) => {
   const title = req.query.title;
