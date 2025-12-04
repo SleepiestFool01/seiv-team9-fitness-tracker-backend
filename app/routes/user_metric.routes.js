@@ -11,6 +11,11 @@ router.post("/", [authenticate], userMetricController.create);
 router.get("/", [authenticate], userMetricController.findAll);
 
 // Retrieve metrics for a specific user
+router.get(
+  "/user/:id_user/latest",
+  [authenticate],
+  userMetricController.findLatestForUser
+);
 router.get("/user/:id_user", [authenticate], userMetricController.findAllForUser);
 
 // Retrieve a single user metric
