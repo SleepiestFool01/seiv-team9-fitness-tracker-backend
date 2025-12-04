@@ -24,6 +24,7 @@ import User_Team from "./user_team.model.js";
 import Team from "./team.model.js";
 import Muscle_Group from "./muscle_group.model.js";
 import User_Metric from "./user_metric.model.js";
+import Team_Lesson from "./team_lesson.model.js";
 
 
 const db = {};
@@ -41,8 +42,63 @@ db.team_goal_progress = Team_Goal_Progress;
 db.catalog = Catalog;
 db.user_team = User_Team;
 db.team = Team;
+db.team_lesson = Team_Lesson;
 db.muscle_group = Muscle_Group;
 db.user_metric = User_Metric;
+
+// =============================
+// TEAM ↔ USER_TEAM association
+// =============================
+
+// Team can have many user_team rows
+db.team.hasMany(db.user_team, {
+  foreignKey: "id_team",
+  as: "user_team_entries"
+});
+db.user_team.belongsTo(db.team, {
+  foreignKey: "id_team",
+  as: "team"
+});
+
+// =============================
+// USER ↔ USER_TEAM association
+// =============================
+
+// User can have many user_team rows
+db.user.hasMany(db.user_team, {
+  foreignKey: "id_user",
+  as: "user_team_entries"
+});
+db.user_team.belongsTo(db.user, {
+  foreignKey: "id_user",
+  as: "user"
+});
+
+// TEAM ↔ LESSON (Exercise Plans) RELATIONS
+db.team.belongsToMany(db.lesson, {
+  through: db.team_lesson,
+  foreignKey: "id_team",
+  otherKey: "id_lesson",
+  as: "plans",          // team.plans
+});
+
+db.lesson.belongsToMany(db.team, {
+  through: db.team_lesson,
+  foreignKey: "id_lesson",
+  otherKey: "id_team",
+  as: "teams",          // lesson.teams
+});
+
+db.team_lesson.belongsTo(db.team, {
+  foreignKey: "id_team",
+  as: "team",
+});
+
+db.team_lesson.belongsTo(db.lesson, {
+  foreignKey: "id_lesson",
+  as: "lesson",
+});
+
 
 //For Catalog lessons belong to many users & Users belong to many lessons for the relations 
 //Do the same thing for the user_team bridge table. 
@@ -132,7 +188,7 @@ db.player_goal_progress.belongsTo(db.user_metric, {
   foreignKey: { name: "id_user_metric", allowNull: true },
   onDelete: "SET NULL",
 });
-export default db;
+
 
 //TEAM GOAL RELATIONS 
 db.team_goal.belongsTo(db.team, {
@@ -172,3 +228,9 @@ db.user_metric.belongsTo(db.user, {
   foreignKey: { name: "id_user", allowNull: false },
   onDelete: "CASCADE",
 });
+
+export default db;
+
+
+
+

@@ -21,15 +21,20 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all teams
-exports.findAll = (_req, res) => {
-  Team.findAll()
-    .then((data) => res.send(data))
-    .catch((err) =>
-      res.status(500).send({
-        message: err.message || "Error retrieving teams.",
-      })
-    );
+exports.findAll = async (_req, res) => {
+  try {
+    const teams = await Team.findAll({
+      attributes: ["id_team", "name", "description"]
+    });
+
+    res.send(teams);
+  } catch (err) {
+    res.status(500).send({
+      message: err.message || "Error retrieving teams."
+    });
+  }
 };
+
 
 // Retrieve single team
 exports.findOne = (req, res) => {
