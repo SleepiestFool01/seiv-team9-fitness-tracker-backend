@@ -15,6 +15,7 @@ import TeamGoalRoutes from "./team_goal.routes.js";
 import TeamGoalProgressRoutes from "./team_goal_progress.routes.js";
 import UserMetricRoutes from "./user_metric.routes.js";
 import UserTeamRoutes from "./user_team.routes.js";
+import UserLessonRoutes from "./user_lesson.routes.js";
 
 
 const router = Router();
@@ -35,5 +36,6 @@ router.use("/team-goal-progress", TeamGoalProgressRoutes);
 router.use("/user-metrics", UserMetricRoutes);
 router.use("/user-teams", UserTeamRoutes);
 router.use("/exercise", ExerciseRoutes);
+router.use("/user-lessons", UserLessonRoutes);
 
 export default router;

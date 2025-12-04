@@ -1,33 +1,54 @@
 import db from "../models/index.js";
 
 const Lesson = db.lesson;
+const UserLesson = db.user_lesson;
 const Op = db.Sequelize.Op;
 const exports = {};
 
-// Create and Save a new Lesson
-exports.create = (req, res) => {
-  if (!req.body.title || !req.body.id_user || !req.body.id_muscle_group) {
+// Create and Save a new Lesson, optionally assigning to multiple users
+exports.create = async (req, res) => {
+  if (!req.body.title || !req.body.id_muscle_group) {
     return res.status(400).send({
-      message: "title, id_user, and id_muscle_group are required."
+      message: "title and id_muscle_group are required."
     });
   }
+
+  const assignedUsers = Array.isArray(req.body.assignedUsers)
+    ? req.body.assignedUsers
+    : (req.body.id_user ? [req.body.id_user] : []);
 
   const lesson = {
     title: req.body.title,
     description: req.body.description,
     published: req.body.published || false,
-    id_user: req.body.id_user,
-    id_muscle_group: req.body.id_muscle_group,   // ← REQUIRED
+    id_user: req.body.id_user, // still store creator/owner if provided
+    id_muscle_group: req.body.id_muscle_group,
   };
 
-  Lesson.create(lesson)
-    .then(data => res.send(data))
-    .catch(err => {
-      console.error("LESSON CREATE ERROR:", err);
-      res.status(500).send({
-        message: err.message || "Some error occurred while creating the Lesson."
+  const t = await db.sequelize.transaction();
+  try {
+    const createdLesson = await Lesson.create(lesson, { transaction: t });
+
+    if (assignedUsers.length) {
+      const rows = assignedUsers.map((id_user) => ({
+        id_user,
+        id_lesson: createdLesson.id_lesson,
+      }));
+      await UserLesson.bulkCreate(rows, {
+        transaction: t,
+        ignoreDuplicates: true,
       });
+    }
+
+    await t.commit();
+    res.send(createdLesson);
+  } catch (err) {
+    await t.rollback();
+    console.error("LESSON CREATE ERROR:", err);
+    res.status(500).send({
+      message: err.message || "Some error occurred while creating the Lesson.",
     });
+  }
 };
 
 // Retrieve all Lessons from the database.
@@ -46,19 +67,11 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Lesson with an id
+// (Deprecated) Direct lessons by owner; keep for compatibility but prefer user_lesson
 exports.findAllForUser = (req, res) => {
   const id_user = req.params.id_user;
   Lesson.findAll({ where: { id_user } })
-    .then((data) => {
-      if (data) {
-        res.send(data);
-      } else {
-        res.status(404).send({
-          message: `Cannot find Lessons for user with id_user=${id_user}.`,
-        });
-      }
-    })
+    .then((data) => res.send(data))
     .catch((err) => {
       res.status(500).send({
         message:
