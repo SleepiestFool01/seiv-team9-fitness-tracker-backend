@@ -1,24 +1,20 @@
 import Sequelize from "sequelize";
-import SequeliseInstance from "../config/sequelizeInstance.js";
+import sequelize from "../config/sequelizeInstance.js";
 
-
-// A team is comprised of different users, and these users/players are assigned to a team by a coach.
-const Team = SequeliseInstance.define("team", {
-    //Primary Key 
-    id_team: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false,
-    },
-    //Team Variables
-    name: {
-        type: Sequelize.STRING,
-    },
-    description:{
-        type: Sequelize.STRING,
-    },  
-
+const Team = sequelize.define("team", {
+  id_team: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
 });
 
 export default Team;

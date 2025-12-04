@@ -56,11 +56,28 @@ exports.findAll = (req, res) => {
 // Find all users with role = "athlete"
 exports.findAllAthletes = (req, res) => {
   db.user
-    .findAll({ where: { role: "athlete" } })
+    .findAll({ where: { role: "athletes" } })
     .then(data => res.send(data))
     .catch(err => {
       res.status(500).send({
         message: err.message || "Some error occurred while retrieving athletes.",
+      });
+    });
+};
+
+exports.createAthlete = (req, res) => {
+  const athlete = {
+    fName: req.body.fName,
+    lName: req.body.lName,
+    email: req.body.email,
+    role: "athletes"
+  };
+
+  User.create(athlete)
+    .then(data => res.send(data))
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Error creating athlete."
       });
     });
 };

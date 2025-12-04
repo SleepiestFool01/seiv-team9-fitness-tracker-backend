@@ -1,27 +1,30 @@
-  import users from "../controllers/user.controller.js";
-  import  authenticate from "../authorization/authorization.js";
-  import { Router } from "express";
-  var router = Router()
+import users from "../controllers/user.controller.js";
+import authenticate from "../authorization/authorization.js";
+import { Router } from "express";
+var router = Router()
 
-  // Create a new User
-  router.post("/", [authenticate], users.create);
+// Create a new User
+router.post("/", [authenticate], users.create);
 
-  // Retrieve all People/Users
-  router.get("/", [authenticate], users.findAll);
+// Create a new Athlete
+router.post("/create-athlete", [authenticate], users.createAthlete);
 
-  // Retrieve all athletes
-  router.get("/athletes", [authenticate], users.findAllAthletes);
+// Retrieve all People/Users
+router.get("/", [authenticate], users.findAll);
 
-  // Retrieve a single User with id_user
-  router.get("/:id_user", [authenticate], users.findOne);
+// Retrieve all athletes
+router.get("/athletes", [authenticate], users.findAllAthletes);
 
-  // Update a User with id_user
-  router.put("/:id_user", [authenticate], users.update);
+// Retrieve a single User with id_user
+router.get("/:id_user", [authenticate], users.findOne);
 
-  // Update User's Role
-  router.put("/role/:id_user", [authenticate], users.updateRole);
+// Update a User with id_user
+router.put("/:id_user", [authenticate], users.update);
 
-  // Delete a User with id_user
-  router.delete("/:id_user", [authenticate], users.delete);
+// Update User's Role
+router.put("/role/:id_user", [authenticate], users.updateRole);
 
-  export default router;
+// Delete a User with id_user
+router.delete("/:id_user", [authenticate], users.delete);
+
+export default router;
